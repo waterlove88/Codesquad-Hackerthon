@@ -14,6 +14,7 @@ import RxAlamofire
 
 enum Router {
   case user(String)
+  case pushEvent(String)
 }
 
 extension Router {
@@ -21,7 +22,9 @@ extension Router {
   
   var path: String {
     switch self {
-    case .user(let id):
+    case .user(let token):
+      return "/\(token)"
+    case .pushEvent(let id):
       return "/\(id)"
     }
   }
@@ -38,12 +41,16 @@ extension Router {
     switch self {
     case .user:
       return .get
+    case .pushEvent:
+      return .get
     }
   }
   
   var parameterEncoding: ParameterEncoding {
     switch self {
     case .user:
+      return URLEncoding.default
+    case .pushEvent:
       return URLEncoding.default
     }
   }
@@ -63,6 +70,19 @@ extension Router {
     
     return Router.manager.rx
       .request(method, url)
+      .validate(statusCode: 200..<300)
+      .data().observeOn(MainScheduler.instance)
+  }
+  
+  func buildRequest(parameters: Parameters) -> Observable<Data> {
+    guard let url = url else { return Observable.empty() }
+    
+    return Router.manager.rx
+      .request(method,
+               url,
+               parameters: parameters,
+               encoding: parameterEncoding,
+               headers: nil)
       .validate(statusCode: 200..<300)
       .data().observeOn(MainScheduler.instance)
   }

@@ -42,4 +42,26 @@ struct API {
       return Disposables.create { }
     })
   }
+  
+  func fetchUserInfo() -> Observable<User> {
+    guard let token = App.preferenceManager.token else { return Observable.empty() }
+    return Router.user(token).buildRequest().map { data in
+      guard let user = try? self.decoder.decode(User.self, from: data) else {
+        return User()
+      }
+      
+      return user
+    }
+  }
+  
+  func fetchPushEvent() -> Observable<PushEvent> {
+    guard let loginId = App.preferenceManager.loginId else { return Observable.empty() }
+    return Router.pushEvent(loginId).buildRequest().map { data in
+      guard let pushEvent = try? self.decoder.decode(PushEvent.self, from: data) else {
+        return PushEvent()
+      }
+      
+      return pushEvent
+    }
+  }
 }

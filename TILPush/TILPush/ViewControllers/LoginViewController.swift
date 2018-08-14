@@ -7,14 +7,28 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class LoginViewController: BaseViewController {
   @IBOutlet weak var enteredGithubButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+        
     bindEvent()
+  }
+}
+
+extension LoginViewController {
+  static func register() {
+    _ = App.preferenceManager.rx.token
+      .filter { $0 == nil}
+      .delay(0.2, scheduler: MainScheduler.instance)
+      .subscribe(onNext: { _ in
+        let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+        App.appDelegate.window?.rootViewController?.present(loginViewController, animated: true, completion: nil)
+      })
   }
 }
 
@@ -33,10 +47,10 @@ fileprivate extension LoginViewController {
         self.present(alert, animated: true, completion: nil)
       }).disposed(by: disposeBag)
     
-//    App.preferenceManager.rx.token.filter {  $0 != nil }
-//      .subscribe(onNext: { [weak self] _ in
-//        self?.dismiss(animated: true, completion: nil)
-//      }).disposed(by: disposeBag)
+    App.preferenceManager.rx.token.filter {  $0 != nil }
+      .subscribe(onNext: { [weak self] _ in
+        self?.dismiss(animated: true, completion: nil)
+      }).disposed(by: disposeBag)
   }
 }
 
