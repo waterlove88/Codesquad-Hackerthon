@@ -14,6 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    #if DEBUG
+      removeUserDefaults()
+    #endif
+    
+    LoginViewController.register()
     return true
   }
   
@@ -22,6 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       OAuthSwift.handle(url: url)
     }
     return true
+  }
+  
+  fileprivate func removeUserDefaults() {
+    let appDomain = Bundle.main.bundleIdentifier
+    UserDefaults.standard.removePersistentDomain(forName: appDomain!)
   }
 }
 

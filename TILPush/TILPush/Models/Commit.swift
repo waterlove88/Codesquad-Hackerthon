@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  Commit.swift
 //  TILPush
 //
 //  Created by yuaming on 2018. 8. 15..
@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct User: Codable {
-  var login: String = ""
-  var name: String = ""
+struct Commit: Codable {
+  var message: String?
+  var url: String?
   
   enum CodingKeys: String, CodingKey {
-    case login
-    case name
+    case message
+    case url
   }
 }

@@ -21,8 +21,8 @@ extension Router {
   
   var path: String {
     switch self {
-    case .user(let id):
-      return "/\(id)"
+    case .user(let token):
+      return "/\(token)"
     }
   }
   
@@ -63,6 +63,19 @@ extension Router {
     
     return Router.manager.rx
       .request(method, url)
+      .validate(statusCode: 200..<300)
+      .data().observeOn(MainScheduler.instance)
+  }
+  
+  func buildRequest(parameters: Parameters) -> Observable<Data> {
+    guard let url = url else { return Observable.empty() }
+    
+    return Router.manager.rx
+      .request(method,
+               url,
+               parameters: parameters,
+               encoding: parameterEncoding,
+               headers: nil)
       .validate(statusCode: 200..<300)
       .data().observeOn(MainScheduler.instance)
   }

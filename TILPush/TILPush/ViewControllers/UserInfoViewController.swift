@@ -8,11 +8,24 @@
 
 import UIKit
 
-class UserInfoViewController: UIViewController {
+class UserInfoViewController: BaseViewController {
   @IBOutlet weak var userLabel: UILabel!
   @IBOutlet weak var remainingTimeLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    bindUI()
+    bindEvents()
+  }
+}
+
+fileprivate extension UserInfoViewController {
+  func bindUI() {
+    navigationController?.navigationBar.isHidden = true
+  }
+  
+  func bindEvents() {
+    
   }
 }
