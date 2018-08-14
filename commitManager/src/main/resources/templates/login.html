@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -15,10 +15,17 @@
 </body>
 </html>
 
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     $(function(){
 
     }).on('click', '#btnGithubLogin', function() {
-
+        location.href = /*[[${oauthUrl}]]*/;
     });
+
+    /*]]>*/
+</script>
+
+<script>
+
 </script>

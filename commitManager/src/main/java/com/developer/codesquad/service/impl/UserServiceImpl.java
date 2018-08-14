@@ -13,35 +13,47 @@ import org.springframework.web.server.ResponseStatusException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final ParameterizedTypeReference<List<Object>> TYPE_REF_LIST_OBJECT = new ParameterizedTypeReference<List<Object>>() {};
 
-    private final URI URI_API_EMAILS;
+    private final ParameterizedTypeReference<Map<String, Object>> TYPE_REF_MAP_STRING_OBJ = new ParameterizedTypeReference<Map<String, Object>>() {};
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public UserServiceImpl() {
-        try {
-            URI_API_EMAILS = new URI("https://api.github.com/user/emails");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException();
-        }
-    }
-
     @Override
-    public List<Object> getUserEmails(final String accessToken) {
+    public List<Object> getUserEmails(final String accessToken) throws URISyntaxException {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Authorization", "token " + accessToken);
 
-        RequestEntity<String> requestEntity = new RequestEntity<>(httpHeaders, HttpMethod.GET, URI_API_EMAILS);
+        RequestEntity<String> requestEntity = new RequestEntity<>(httpHeaders, HttpMethod.GET,
+                new URI("https://api.github.com/user/emails"));
 
         ResponseEntity<List<Object>> responseEntity = restTemplate.exchange(requestEntity, TYPE_REF_LIST_OBJECT);
 
         if (responseEntity.getStatusCode().is4xxClientError() ||
         responseEntity.getStatusCode().is5xxServerError()) {
+            throw new ResponseStatusException(responseEntity.getStatusCode());
+        }
+
+        return responseEntity.getBody();
+    }
+
+    @Override
+    public Map<String, Object> getUserInfo(String accessToken) throws URISyntaxException {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Authorization", "token " + accessToken);
+
+        RequestEntity<String> requestEntity = new RequestEntity<>(httpHeaders, HttpMethod.GET,
+                new URI("https://api.github.com/user"));
+
+        ResponseEntity<Map<String, Object>> responseEntity = restTemplate.exchange(requestEntity, TYPE_REF_MAP_STRING_OBJ);
+
+        if (responseEntity.getStatusCode().is4xxClientError() ||
+                responseEntity.getStatusCode().is5xxServerError()) {
             throw new ResponseStatusException(responseEntity.getStatusCode());
         }
 
