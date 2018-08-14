@@ -13,6 +13,7 @@ final class PreferenceManager {
   enum Constants: String {
     case tokenKey
     case refreshTokenKey
+    case loginId
   }
   
   fileprivate var tokenSubject: BehaviorSubject<String?> = BehaviorSubject(value: UserDefaults.standard.string(forKey: Constants.tokenKey.rawValue))
@@ -35,6 +36,16 @@ final class PreferenceManager {
     }
     set {
       UserDefaults.standard.set(newValue, forKey: Constants.refreshTokenKey.rawValue)
+    }
+  }
+  
+  var loginId: String? {
+    get {
+      let loginId = UserDefaults.standard.string(forKey: Constants.loginId.rawValue)
+      return loginId
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: Constants.loginId.rawValue)
     }
   }
 }

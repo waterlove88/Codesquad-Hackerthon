@@ -14,6 +14,7 @@ import RxAlamofire
 
 enum Router {
   case user(String)
+  case pushEvent(String)
 }
 
 extension Router {
@@ -23,6 +24,8 @@ extension Router {
     switch self {
     case .user(let token):
       return "/\(token)"
+    case .pushEvent(let id):
+      return "/\(id)"
     }
   }
   
@@ -38,12 +41,16 @@ extension Router {
     switch self {
     case .user:
       return .get
+    case .pushEvent:
+      return .get
     }
   }
   
   var parameterEncoding: ParameterEncoding {
     switch self {
     case .user:
+      return URLEncoding.default
+    case .pushEvent:
       return URLEncoding.default
     }
   }
