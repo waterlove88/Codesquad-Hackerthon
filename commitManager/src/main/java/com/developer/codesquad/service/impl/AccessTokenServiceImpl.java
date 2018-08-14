@@ -1,7 +1,9 @@
 package com.developer.codesquad.service.impl;
 
-import com.developer.codesquad.domain.AccessTokenRequest;
-import com.developer.codesquad.service.AccessTokenService;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -10,10 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Map;
+import com.developer.codesquad.domain.AccessTokenRequest;
+import com.developer.codesquad.service.AccessTokenService;
 
 @Service
 public class AccessTokenServiceImpl implements AccessTokenService {

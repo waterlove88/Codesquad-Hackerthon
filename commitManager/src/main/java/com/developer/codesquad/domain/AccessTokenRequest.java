@@ -1,5 +1,7 @@
 package com.developer.codesquad.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AccessTokenRequest {
 
     private final String clientId;
