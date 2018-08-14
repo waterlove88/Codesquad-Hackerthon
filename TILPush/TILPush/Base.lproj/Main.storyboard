@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="TILPush" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="octocat" translatesAutoresizingMaskIntoConstraints="NO" id="ki9-Qw-FPj">
+                                <rect key="frame" x="127" y="153.5" width="120" height="120"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOh-gM-hvq">
+                                <rect key="frame" x="162.5" y="318.5" width="49" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Github">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XOh-gM-hvq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="APm-gA-2fs"/>
+                            <constraint firstItem="XOh-gM-hvq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NMZ-vV-52t"/>
+                            <constraint firstItem="ki9-Qw-FPj" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-120" id="OuH-Vz-vk6"/>
+                            <constraint firstItem="ki9-Qw-FPj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dnh-GH-Bab"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="enteredGithubButton" destination="XOh-gM-hvq" id="ZlL-oH-8u9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--User Info View Controller-->
+        <scene sceneID="COL-5L-6zc">
+            <objects>
+                <viewController id="8Tv-tA-Bic" customClass="UserInfoViewController" customModule="TILPush" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LdD-2N-IHH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbd-Kw-hUg">
+                                <rect key="frame" x="157" y="165.5" width="61" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 시간 00 분 남았음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IzJ-JG-3fo">
+                                <rect key="frame" x="59.5" y="265.5" width="256.5" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IzJ-JG-3fo" firstAttribute="centerX" secondItem="LdD-2N-IHH" secondAttribute="centerX" id="MJW-VB-2H8"/>
+                            <constraint firstItem="IzJ-JG-3fo" firstAttribute="centerY" secondItem="LdD-2N-IHH" secondAttribute="centerY" constant="-50" id="ceO-Ry-1I5"/>
+                            <constraint firstItem="zbd-Kw-hUg" firstAttribute="centerX" secondItem="LdD-2N-IHH" secondAttribute="centerX" id="kY8-9R-HW3"/>
+                            <constraint firstItem="zbd-Kw-hUg" firstAttribute="centerY" secondItem="LdD-2N-IHH" secondAttribute="centerY" constant="-150" id="roM-4n-BNg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="J7C-Xy-b2L"/>
+                    </view>
+                    <connections>
+                        <outlet property="remainingTimeLabel" destination="IzJ-JG-3fo" id="79g-3t-0Lh"/>
+                        <outlet property="userLabel" destination="zbd-Kw-hUg" id="2dn-dU-BOc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3jH-eN-qqm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="798" y="34"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="octocat" width="120" height="120"/>
+    </resources>
+</document>

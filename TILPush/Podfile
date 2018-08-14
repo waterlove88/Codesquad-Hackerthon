@@ -1,0 +1,12 @@
+target 'TILPush' do
+  
+  use_frameworks!
+  
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RxAlamofire'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'OAuthSwift'
+
+end

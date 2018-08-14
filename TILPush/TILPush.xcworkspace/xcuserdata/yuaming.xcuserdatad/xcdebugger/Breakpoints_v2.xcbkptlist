@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TILPush/AppDelegate.swift"
+            timestampString = "555955456.938089"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "application(_:open:options:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TILPush/Utils/API.swift"
+            timestampString = "555955456.938187"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "getToken()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (RxSwift.AnyObserver&lt;(Swift.String, Swift.String)&gt;) -&gt; RxSwift.Disposable in TILPush.API.getToken() -&gt; RxSwift.Observable&lt;(Swift.String, Swift.String)&gt;"
+                  moduleName = "TILPush"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yuaming/dev/workspaces/for-developer/TILPush/TILPush/Utils/API.swift"
+                  timestampString = "555955457.2004631"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "289">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (OAuthSwift.OAuthSwiftCredential, Swift.Optional&lt;OAuthSwift.OAuthSwiftResponse&gt;, Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; () in closure #1 (RxSwift.AnyObserver&lt;(Swift.String, Swift.String)&gt;) -&gt; RxSwift.Disposable in TILPush.API.getToken() -&gt; RxSwift.Observable&lt;(Swift.String, Swift.String)&gt;"
+                  moduleName = "TILPush"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yuaming/dev/workspaces/for-developer/TILPush/TILPush/Utils/API.swift"
+                  timestampString = "555955457.204698"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "33">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
