@@ -3,13 +3,13 @@
 <mapper namespace="batchMapper">
     <select id="selectToken" resultType="com.developer.codesquad.domain.BatchRequest">
         <![CDATA[
-            SELECT token FROM users WHERE token is not null
+            SELECT id, token FROM users WHERE token is not null
          ]]>
     </select>
     
     <select id="selectMail" resultType="com.developer.codesquad.domain.BatchRequest">
         <![CDATA[
-            SELECT email FROM users WHERE email is not null
+            SELECT id, email FROM users WHERE email is not null
          ]]>
     </select>
     

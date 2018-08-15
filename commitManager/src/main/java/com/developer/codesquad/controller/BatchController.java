@@ -1,6 +1,7 @@
 package com.developer.codesquad.controller;
 
 import java.net.URISyntaxException;
+import java.text.ParseException;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -25,12 +26,12 @@ public class BatchController {
 	private BatchService batchService;
 	
 	@GetMapping("/sendPush")
-	public ResultMaster sendPush() throws URISyntaxException {
+	public ResultMaster sendPush() throws URISyntaxException, ParseException {
 		return batchService.sendPush();
 	}
 	
 	@GetMapping("/sendMail")
-	public ResultMaster sendMail() throws URISyntaxException, AddressException, MessagingException {
+	public ResultMaster sendMail() throws URISyntaxException, AddressException, MessagingException, ParseException {
 		return batchService.sendMail();
 	}
 	

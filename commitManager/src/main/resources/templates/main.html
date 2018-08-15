@@ -10,6 +10,7 @@
 </head>
 <body>
   <div class="whole_wrap">
+      <input type="hidden" id="login" name="login" th:value="${session.USER_INFO.login}"/>
     <div class="title">Commit Manager</div>
     <div class="nickname_wrap">
       <span th:text="${session.USER_INFO.name}"></span> 님
@@ -24,7 +25,7 @@
       </div>
       <div class="commit_list_wrap"></div>
     </div>
-    <div class="logout_button">로그아웃</div>
+    <div class="logout_button" onclick="window.location.href='/logout'">로그아웃</div>
   </div>
 </body>
 <script src='/resources/static/js/index.js'></script>

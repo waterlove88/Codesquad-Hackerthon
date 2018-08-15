@@ -151,8 +151,9 @@ const dateCalculator = new DateCalculator({
   lastCommitTimeMessageElem: document.querySelector('.last_commit_time_message'),
   restTimeElem: document.querySelector('.rest_time'),
   commitListWrapElem: document.querySelector('.commit_list_wrap'),
-  /*uri: 'http://13.209.88.99/api/commit/recent',*/
-    uri: 'http://localhost/api/commit/recent',
+    login: document.getElementById("login"),
+    uri: 'http://13.209.88.99/api/commit/recent?login='+login.value,
+    /*uri: 'http://localhost/api/commit/recent?login='+login.value,*/
   ajax: ajax,
   dayCalculator: dayCalculator,
   template: template
