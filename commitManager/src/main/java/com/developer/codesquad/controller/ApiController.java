@@ -11,18 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@SessionAttributes("USER_INFO")
 public class ApiController {
 
     @Autowired
     private ApiService apiService;
 
     @GetMapping("/commit/recent")
-    public ResponseEntity getCommitRecent(@RequestParam(value = "login", required = false) String loginId,
-                                          @ModelAttribute(value = "USER_INFO", binding = false) User user) {
+    public ResponseEntity getCommitRecent(@RequestParam(value = "login") String loginId) {
 
         if (StringUtils.isEmpty(loginId)) {
-            loginId = user.getLogin();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         Event event = apiService.getRecentEventFromEventList(loginId);
