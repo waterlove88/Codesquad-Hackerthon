@@ -68,6 +68,12 @@ public class LoginController {
         return "redirect:/main";
     }
 
+    @GetMapping("/logout")
+    public String logout(final HttpSession httpSession) {
+        httpSession.invalidate();
+        return "redirect:/login";
+    }
+
     private User makeUserInfo(Map<String, Object> userMap) {
         User user = new User();
         user.setLogin((String) userMap.get("login"));

@@ -84,12 +84,17 @@ public class ApiServiceImpl implements ApiService {
 
             event.setLogin(((JsonObject) recentEvent.get("actor")).get("login").getAsString());
 
-            ZoneId zoneId = ZoneId.of("Asia/Seoul");
+            ZoneId zoneSeoul = ZoneId.of("Asia/Seoul");
+            ZoneId zoneUTC = ZoneId.of("UTC");
+
             String createdAt = recentEvent.get("created_at").getAsString();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDateTime.parse(createdAt, formatter), zoneId);
             DateTimeFormatter realFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            event.setCreatedAt(zonedDateTime.format(realFormatter));
+
+            ZonedDateTime utcDateTime = ZonedDateTime.of(LocalDateTime.parse(createdAt, formatter), zoneUTC);
+            ZonedDateTime seoulTime = utcDateTime.withZoneSameInstant(zoneSeoul);
+
+            event.setCreatedAt(seoulTime.format(realFormatter));
 
         }
 
