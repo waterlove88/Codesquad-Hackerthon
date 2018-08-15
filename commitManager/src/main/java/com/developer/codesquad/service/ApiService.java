@@ -4,5 +4,5 @@ import com.developer.codesquad.domain.Event;
 import com.google.gson.JsonArray;
 
 public interface ApiService {
-    Event getRecentEventFromEventList(JsonArray eventList);
+    Event getRecentEventFromEventList(String loginId);
 }
