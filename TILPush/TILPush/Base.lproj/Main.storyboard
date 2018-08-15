@@ -55,25 +55,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbd-Kw-hUg">
-                                <rect key="frame" x="157" y="165.5" width="61" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbd-Kw-hUg">
+                                <rect key="frame" x="161.5" y="165.5" width="52" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IzJ-JG-3fo">
-                                <rect key="frame" x="151" y="265.5" width="73.5" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="커밋 내역이 없습니다:)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IzJ-JG-3fo">
+                                <rect key="frame" x="55.5" y="265.5" width="265" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6Z-YO-kMW">
+                                <rect key="frame" x="187" y="333.5" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="w6Z-YO-kMW" firstAttribute="centerY" secondItem="LdD-2N-IHH" secondAttribute="centerY" id="DLl-pe-qia"/>
                             <constraint firstItem="IzJ-JG-3fo" firstAttribute="centerX" secondItem="LdD-2N-IHH" secondAttribute="centerX" id="MJW-VB-2H8"/>
                             <constraint firstItem="IzJ-JG-3fo" firstAttribute="centerY" secondItem="LdD-2N-IHH" secondAttribute="centerY" constant="-50" id="ceO-Ry-1I5"/>
                             <constraint firstItem="zbd-Kw-hUg" firstAttribute="centerX" secondItem="LdD-2N-IHH" secondAttribute="centerX" id="kY8-9R-HW3"/>
                             <constraint firstItem="zbd-Kw-hUg" firstAttribute="centerY" secondItem="LdD-2N-IHH" secondAttribute="centerY" constant="-150" id="roM-4n-BNg"/>
+                            <constraint firstItem="w6Z-YO-kMW" firstAttribute="centerX" secondItem="LdD-2N-IHH" secondAttribute="centerX" id="zeM-gM-ieT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J7C-Xy-b2L"/>
                     </view>
@@ -83,6 +91,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="commitMessageLabel" destination="w6Z-YO-kMW" id="vvZ-Og-FmS"/>
                         <outlet property="logoutButton" destination="Ww8-XB-MeS" id="67A-Yl-tTQ"/>
                         <outlet property="timeLabel" destination="IzJ-JG-3fo" id="ZWB-NC-Fmd"/>
                         <outlet property="userLabel" destination="zbd-Kw-hUg" id="2dn-dU-BOc"/>
