@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 import OAuthSwift
 import Firebase
 
@@ -24,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     application.registerForRemoteNotifications()
     requestNotificationAuthorization(application)
-    printNotificationUserInfo(launchOptions)
+    postDeviceToken()
     
     LoginViewController.register()
     

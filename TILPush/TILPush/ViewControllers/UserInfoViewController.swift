@@ -26,6 +26,13 @@ fileprivate extension UserInfoViewController {
   }
   
   func bindEvents() {
-    
+    NotificationCenter.default.addObserver(self, selector: #selector(updateDeviceToken(_:)), name: .postDeviceToken, object: nil)
+  }
+  
+  @objc func updateDeviceToken(_ notification: Notification) {
+    if let userInfo = notification.userInfo,
+      let deviceToken = userInfo["deviceToken"] as? String {
+      print(deviceToken)
+    }
   }
 }

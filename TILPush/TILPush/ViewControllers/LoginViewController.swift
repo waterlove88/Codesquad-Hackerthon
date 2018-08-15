@@ -20,17 +20,6 @@ class LoginViewController: BaseViewController {
   }
 }
 
-extension LoginViewController {
-  static func register() {
-    _ = App.preferenceManager.rx.token
-      .filter { $0 == nil}
-      .delay(0.2, scheduler: MainScheduler.instance)
-      .subscribe(onNext: { _ in
-        let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
-        App.appDelegate.window?.rootViewController?.present(loginViewController, animated: true, completion: nil)
-      })
-  }
-}
 
 fileprivate extension LoginViewController {
   func bindEvent() {
@@ -54,3 +43,14 @@ fileprivate extension LoginViewController {
   }
 }
 
+extension LoginViewController {
+  static func register() {
+    _ = App.preferenceManager.rx.token
+      .filter { $0 == nil}
+      .delay(0.2, scheduler: MainScheduler.instance)
+      .subscribe(onNext: { _ in
+        let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+        App.appDelegate.window?.rootViewController?.present(loginViewController, animated: true, completion: nil)
+      })
+  }
+}
