@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-<mapper namespace="batchMapper">
-    <select id="selectTest" resultType="com.developer.codesquad.domain.BatchRequest">
-        <![CDATA[
-            SELECT * FROM test
-         ]]>
-    </select>
-    
+<mapper namespace="tokenMapper">
     <update id="updateToken" parameterType="com.developer.codesquad.domain.TokenRequest">
    		<![CDATA[
             INSERT INTO test (id, token) VALUES (#{id}, #{token})  

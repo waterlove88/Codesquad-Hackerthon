@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.developer.codesquad.dao.BatchDao;
 import com.developer.codesquad.domain.BatchRequest;
+import com.developer.codesquad.domain.TokenRequest;
 
 @Service
 public class BatchService {
@@ -14,13 +15,22 @@ public class BatchService {
 	private BatchDao batchDao;
 	
 	public String sendPush() {
+		List<BatchRequest> target = batchDao.sendPush();
 		
-		List<BatchRequest> a = batchDao.sendPush();
-		
-		for(int i=0; i<a.size(); i++) {
-			System.out.println(a.get(i).getId());
+		for(int i=0; i<target.size(); i++) {
+			System.out.println(target.get(i).getId());
 		}
 		
 		return "sendPush";
+	}
+	
+	public String setToken(TokenRequest tokenRequest) {
+		int target = batchDao.setToken(tokenRequest);
+		
+		if(target > 0) {
+			return "setToken";
+		}
+		
+		return "fail setToken";
 	}
 }
