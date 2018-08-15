@@ -24,6 +24,16 @@ public class BatchService {
 		return "sendPush";
 	}
 	
+	public String isPushAgree(TokenRequest tokenRequest) {
+		int target = batchDao.isPushAgree(tokenRequest);
+		
+		if(target > 0) {
+			return "Y";
+		}
+		
+		return "N";
+	}
+	
 	public String setToken(TokenRequest tokenRequest) {
 		int target = batchDao.setToken(tokenRequest);
 		
