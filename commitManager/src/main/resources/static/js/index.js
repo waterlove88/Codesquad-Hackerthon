@@ -1,20 +1,20 @@
-// const ajax = function({uri, callback}) {
-//   const x = new XMLHttpRequest();
-//   x.addEventListener('load', () => {
-//     const data = JSON.parse(x.response);
-//     callback(data);
-//   })
-//   x.open('GET', uri);
-//   x.send();
-// }
-
 const ajax = function({uri, callback}) {
-  const dummyData = {
-    createdAt: "2018-08-14 08:02:13",
-    commitList: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
-  }
-  callback(dummyData);
+  const x = new XMLHttpRequest();
+  x.addEventListener('load', () => {
+    const data = JSON.parse(x.response);
+    callback(data);
+  })
+  x.open('GET', uri);
+  x.send();
 }
+
+// const ajax = function({uri, callback}) {
+//   const dummyData = {
+//     createdAt: "2018-08-14 12:02:13",
+//     commitList: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
+//   }
+//   callback(dummyData);
+// }
 
 const template = function(message) {
   return `<li class='commit_list_item'>${message}</li>`;
@@ -74,13 +74,16 @@ class DateCalculator {
 
       const passedTimeMonth = passedTime.getMonth();
       const passedTimeDate = passedTime.getDate();
-      const passedTimeHours = passedTime.getHours();
+      const passedTimeHours = passedTime.getHours() - 9;
       const passedTimeMinutes = passedTime.getMinutes();
       const passedTimeSeconds = passedTime.getSeconds();
       
-      const restDays = this.dayCalculator({month: passedTimeMonth, date: passedTimeDate});
+      const passedDays = this.dayCalculator({month: passedTimeMonth, date: passedTimeDate});
 
-      const passedTimeMessage = `${restDays}일 ${passedTimeHours}시간 ${passedTimeMinutes}분`;
+      const passedDaysString = passedDays ? `${passedDays}일 ` : '';
+      const passedHoursString = passedTimeHours ? `${passedTimeHours}시간 ` : '';
+
+      const passedTimeMessage = passedDaysString + passedHoursString + `${passedTimeMinutes}분`;
 
       message = '마지막 커밋으로부터 <span class="text_highlight">' + passedTimeMessage + '</span> 지났습니다';
     }
@@ -140,7 +143,7 @@ const dateCalculator = new DateCalculator({
   lastCommitTimeMessageElem: document.querySelector('.last_commit_time_message'),
   restTimeElem: document.querySelector('.rest_time'),
   commitListWrapElem: document.querySelector('.commit_list_wrap'),
-  uri: 'http://13.209.88.99/api/commit/recent',
+  uri: 'http://13.209.88.99/api/commit/recent?login=youngdo212',
   ajax: ajax,
   dayCalculator: dayCalculator,
   template: template
