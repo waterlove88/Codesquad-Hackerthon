@@ -3,7 +3,7 @@
 <mapper namespace="batchMapper">
     <select id="selectToken" resultType="com.developer.codesquad.domain.BatchRequest">
         <![CDATA[
-            SELECT token FROM users WHERE token is not null
+            SELECT id, token FROM users WHERE token is not null
          ]]>
     </select>
     
