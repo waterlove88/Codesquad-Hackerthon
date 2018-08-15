@@ -88,7 +88,7 @@ public class BatchService {
 				
 				HashMap<String, String> notification = new HashMap<String, String>();
 				notification.put("title","commitManager 알림");
-				notification.put("body", "최근 commit 시간 : "+event.getCreatedAt() +"\n마지막으로 commit 한지 "+calDateDays+"일 지났습니다.");
+				notification.put("body", "최근 commit 시간 : "+event.getCreatedAt() +"\n마지막으로 commit 한지 "+calDateDays+"일 지났습니다.\n어서 commit 하세요!");
 				body.put("notification", notification);
 				
 				RequestEntity<HashMap<String, Object>> requestEntity = new RequestEntity<>(body, httpHeaders, HttpMethod.POST, new URI(pushApi));
@@ -103,7 +103,7 @@ public class BatchService {
 		return rm;
 	}
 	
-	public ResultMaster sendMail() throws AddressException, MessagingException {
+	public ResultMaster sendMail() throws AddressException, MessagingException, ParseException {
 		ResultMaster rm = new ResultMaster("200", "success");
 		List<BatchRequest> target = batchDao.sendMail();
 		
@@ -116,15 +116,28 @@ public class BatchService {
 		transport.connect(emailHost, fromAddress, emailPassword);
 		
 		for(int i=0; i<target.size(); i++) {
-			MimeMessage msg = new MimeMessage(session);
-			 // 메일 관련
-	        msg.setSubject("commitManager 알림");
-	        msg.setText("최근 commit 시간 : ");
-	        msg.setFrom(new InternetAddress(fromAddress));
-	        msg.addRecipient(Message.RecipientType.TO, new InternetAddress(target.get(i).getEmail()));
-			 
-			// 발송
-			transport.sendMessage(msg, msg.getAllRecipients());
+			Event event = apiService.getRecentEventFromEventList(target.get(i).getId());
+			
+			Date currentTime = new Date();
+			String thisTime = format.format(currentTime);
+			
+			Date date1 = format.parse(thisTime);
+			Date date2 = format.parse(event.getCreatedAt());
+			
+			if(date1.compareTo(date2) > 0) {
+				long calDate = date1.getTime() - date2.getTime();
+				long calDateDays = calDate / (24*60*60*1000);
+				
+				MimeMessage msg = new MimeMessage(session);
+				 // 메일 관련
+		        msg.setSubject("commitManager 알림");
+		        msg.setText("최근 commit 시간 : "+event.getCreatedAt() +"\n마지막으로 commit 한지 "+calDateDays+"일 지났습니다.\n어서 commit 하세요!");
+		        msg.setFrom(new InternetAddress(fromAddress));
+		        msg.addRecipient(Message.RecipientType.TO, new InternetAddress(target.get(i).getEmail()));
+				 
+				// 발송
+				transport.sendMessage(msg, msg.getAllRecipients());
+			}
 		}
        
 		transport.close();

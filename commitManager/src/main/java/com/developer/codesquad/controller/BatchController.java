@@ -31,7 +31,7 @@ public class BatchController {
 	}
 	
 	@GetMapping("/sendMail")
-	public ResultMaster sendMail() throws URISyntaxException, AddressException, MessagingException {
+	public ResultMaster sendMail() throws URISyntaxException, AddressException, MessagingException, ParseException {
 		return batchService.sendMail();
 	}
 	

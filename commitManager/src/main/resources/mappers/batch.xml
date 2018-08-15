@@ -9,7 +9,7 @@
     
     <select id="selectMail" resultType="com.developer.codesquad.domain.BatchRequest">
         <![CDATA[
-            SELECT email FROM users WHERE email is not null
+            SELECT id, email FROM users WHERE email is not null
          ]]>
     </select>
     
