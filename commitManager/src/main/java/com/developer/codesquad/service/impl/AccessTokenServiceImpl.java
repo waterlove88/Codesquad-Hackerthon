@@ -1,9 +1,7 @@
 package com.developer.codesquad.service.impl;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Map;
-
+import com.developer.codesquad.domain.AccessTokenRequest;
+import com.developer.codesquad.service.AccessTokenService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -12,8 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.developer.codesquad.domain.AccessTokenRequest;
-import com.developer.codesquad.service.AccessTokenService;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
 
 @Service
 public class AccessTokenServiceImpl implements AccessTokenService {
@@ -30,6 +29,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Override
     public String getAccessToken(final String code) throws URISyntaxException {
+        String accessToken = null;
         final AccessTokenRequest accessTokenRequest = new AccessTokenRequest(clientId, clientSecret, code);
         final RequestEntity<AccessTokenRequest> requestEntity = new RequestEntity<>(accessTokenRequest, HttpMethod.POST,
                 new URI("https://github.com/login/oauth/access_token"));
@@ -37,6 +37,10 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
         final Map<String, String> responseBody = responseEntity.getBody();
 
-        return responseBody.get("access_token");
+        if (responseBody != null) {
+            accessToken = responseBody.get("access_token");
+        }
+
+        return accessToken;
     }
 }
