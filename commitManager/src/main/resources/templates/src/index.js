@@ -120,7 +120,7 @@ const dateCalculator = new DateCalculator({
   lastCommitTimeElem: document.querySelector('.last_commit_time'),
   restTimeElem: document.querySelector('.rest_time'),
   commitList: document.querySelector('.commit_list'),
-  nickname: '만도',
+  nickname: 'mando',
   uri: 'http://13.209.88.99/api/commit/recent',
   ajax: ajax,
   dayCalculator: dayCalculator,
