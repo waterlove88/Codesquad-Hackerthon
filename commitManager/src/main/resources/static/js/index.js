@@ -78,11 +78,11 @@ class DateCalculator {
     }
 
     else {
-      const passedTime = new Date(currentTime - lastCommitTime);
+      const passedTime = new Date(currentTime - lastCommitTime - 32400000);
 
       const passedTimeMonth = passedTime.getMonth();
       const passedTimeDate = passedTime.getDate();
-      const passedTimeHours = passedTime.getHours() - 9;
+      const passedTimeHours = passedTime.getHours();
       const passedTimeMinutes = passedTime.getMinutes();
       const passedTimeSeconds = passedTime.getSeconds();
       
