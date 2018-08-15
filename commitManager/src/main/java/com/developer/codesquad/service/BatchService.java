@@ -5,6 +5,15 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +41,15 @@ public class BatchService {
 	
 	@Value("${push.serverKey}")
 	private String serverKey;
+	
+	@Value("${email.from.address}")
+	private String fromAddress;
+	
+	@Value("${email.host}")
+	private String emailHost;
+	
+	@Value("${email.password}")
+	private String emailPassword;
 	
 	private String pushApi = "https://fcm.googleapis.com/fcm/send";
 	
@@ -65,6 +83,34 @@ public class BatchService {
 		}
 		
 		rm.setBody(responseEntity.getBody());
+		return rm;
+	}
+	
+	public ResultMaster sendMail() throws AddressException, MessagingException {
+		ResultMaster rm = new ResultMaster("200", "success");
+		List<BatchRequest> target = batchDao.sendMail();
+		
+		//properties 설정
+		Properties props = new Properties();
+		props.put("mail.smtps.auth", "true");
+		// 메일 세션
+        Session session = Session.getDefaultInstance(props);
+        Transport transport = session.getTransport("smtps");
+		transport.connect(emailHost, fromAddress, emailPassword);
+		
+		for(int i=0; i<target.size(); i++) {
+			MimeMessage msg = new MimeMessage(session);
+			 // 메일 관련
+	        msg.setSubject("commitManager 알림");
+	        msg.setText("최근 commit 시간 : ");
+	        msg.setFrom(new InternetAddress(fromAddress));
+	        msg.addRecipient(Message.RecipientType.TO, new InternetAddress(target.get(i).getEmail()));
+			 
+			// 발송
+			transport.sendMessage(msg, msg.getAllRecipients());
+		}
+       
+		transport.close();
 		return rm;
 	}
 	

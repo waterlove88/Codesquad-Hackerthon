@@ -2,6 +2,8 @@ package com.developer.codesquad.controller;
 
 import java.net.URISyntaxException;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,11 @@ public class BatchController {
 	@GetMapping("/sendPush")
 	public ResultMaster sendPush() throws URISyntaxException {
 		return batchService.sendPush();
+	}
+	
+	@GetMapping("/sendMail")
+	public ResultMaster sendMail() throws URISyntaxException, AddressException, MessagingException {
+		return batchService.sendMail();
 	}
 	
 	@PostMapping("/isPushAgree")
