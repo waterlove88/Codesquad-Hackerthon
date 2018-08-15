@@ -56,7 +56,7 @@ struct API {
   }
   
   func updateDeviceToken(_ loginId: String, _ token: String) {
-    let parameters = ["id": loginId, "token": token]
+    let parameters = ["id": loginId, "token": token, "email": App.preferenceManager.email ?? ""]
     Router.setToken.buildRequest(parameters: parameters, headers: Router.postedHeaders)
   }
 }

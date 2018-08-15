@@ -15,6 +15,7 @@ final class PreferenceManager {
     case refreshTokenKey
     case loginId
     case name
+    case email
   }
   
   fileprivate var tokenSubject: BehaviorSubject<String?> = BehaviorSubject(value: UserDefaults.standard.string(forKey: Constants.tokenKey.rawValue))
@@ -59,6 +60,16 @@ final class PreferenceManager {
     set {
       UserDefaults.standard.set(newValue, forKey: Constants.name.rawValue)
       nameSubject.onNext(newValue)
+    }
+  }
+  
+  var email: String? {
+    get {
+      let email = UserDefaults.standard.string(forKey: Constants.email.rawValue)
+      return loginId
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: Constants.email.rawValue)
     }
   }
 }

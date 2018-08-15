@@ -32,6 +32,7 @@ fileprivate extension LoginViewController {
         App.preferenceManager.refreshToken = refershToken
         App.preferenceManager.loginId = user.login
         App.preferenceManager.name = user.name
+        App.preferenceManager.email = user.email
         App.appDelegate.postDeviceToken()
       }, onError: {[weak self] (error) in
         guard let `self` = self else { return }
