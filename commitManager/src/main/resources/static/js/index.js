@@ -1,12 +1,12 @@
-const ajax = function({uri, callback}) {
-  const x = new XMLHttpRequest();
-  x.addEventListener('load', () => {
-    const data = JSON.parse(x.response);
-    callback(data);
-  })
-  x.open('GET', uri);
-  x.send();
-}
+// const ajax = function({uri, callback}) {
+//   const x = new XMLHttpRequest();
+//   x.addEventListener('load', () => {
+//     const data = JSON.parse(x.response);
+//     callback(data);
+//   })
+//   x.open('GET', uri);
+//   x.send();
+// }
 
 /*const ajax = function({uri, callback}) {
   const dummyData = {
@@ -16,13 +16,13 @@ const ajax = function({uri, callback}) {
   callback(dummyData);
 }*/
 
-// const ajax = function({uri, callback}) {
-//   const dummyData = {
-//     createdAt: "2018-08-14 12:02:13",
-//     commitList: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
-//   }
-//   callback(dummyData);
-// }
+const ajax = function({uri, callback}) {
+  const dummyData = {
+    createdAt: "2018-08-13 15:02:13",
+    commitList: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
+  }
+  callback(dummyData);
+}
 
 const template = function(message) {
   return `<li class='commit_list_item'>${message}</li>`;
@@ -78,11 +78,11 @@ class DateCalculator {
     }
 
     else {
-      const passedTime = new Date(currentTime - lastCommitTime);
+      const passedTime = new Date(currentTime - lastCommitTime - 32400000);
 
       const passedTimeMonth = passedTime.getMonth();
       const passedTimeDate = passedTime.getDate();
-      const passedTimeHours = passedTime.getHours() - 9;
+      const passedTimeHours = passedTime.getHours();
       const passedTimeMinutes = passedTime.getMinutes();
       const passedTimeSeconds = passedTime.getSeconds();
       
