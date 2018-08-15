@@ -11,7 +11,7 @@
 const ajax = function({uri, callback}) {
   const dummyData = {
     createdAt: "2018-08-14 08:02:13",
-    commits: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}, {message: 'feat: add some feature'}, {message: 'feat: add some feature'}]
+    commits: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
   }
   callback(dummyData);
 }
@@ -33,58 +33,83 @@ const dayCalculator = function({month, date}) {
 }
 
 class DateCalculator {
-  constructor({lastCommitTimeElem, restTimeElem, commitList, uri, ajax, dayCalculator, template}) {
-    this.elLastCommitTime = lastCommitTimeElem;
+  constructor({lastCommitTimeMessageElem, restTimeElem, commitListWrapElem, uri, ajax, dayCalculator, template}) {
+    this.elLastCommitTimeMessage = lastCommitTimeMessageElem;
     this.elRestTime = restTimeElem;
-    this.elCommitList = commitList;
+    this.elCommitListWrap = commitListWrapElem;
     this.uri = uri;
     this.ajax = ajax
     this.dayCalculator = dayCalculator;
     this.template = template;
     this.restTime = null;
+    this.lastCommitDate = null;
+    this.setTimeoutID = null;
   }
 
-  init() {
+  start() {
+    clearTimeout(this.setTimeoutID);
     this.ajax({uri: this.uri, callback: this.set.bind(this)});
   }
 
   set(ajaxData) {
-    const lastCommitDate = ajaxData.createdAt;
+    this.lastCommitDate = new Date(ajaxData.createdAt);
     const commitList = ajaxData.commits;
 
-    this.setLastCommitTime(lastCommitDate);
-    this.setRestTime();
+    this.setLastCommitTime(this.lastCommitDate);
+    this.setRestTime({lastCommitDate: this.lastCommitDate});
     this.renderCommitList(commitList);
   }
 
-  setLastCommitTime(date) {
+  setLastCommitTime(lastCommitDate) {
     const currentTime = new Date().getTime();
-    const lastCommitTime = new Date(date).getTime();
+    const lastCommitTime = lastCommitDate.getTime();
+    let message = '';
 
-    const restTime = new Date(currentTime - lastCommitTime);
+    if(!lastCommitTime) {
+      message = '커밋이 존재하지 않습니다';
+    }
 
-    const restTimeMonth = restTime.getMonth();
-    const restTimeDate = restTime.getDate();
-    const restTimeHours = restTime.getHours();
-    const restTimeMinutes = restTime.getMinutes();
-    const restTimeSeconds = restTime.getSeconds();
-    
-    const restDays = this.dayCalculator({month: restTimeMonth, date: restTimeDate});
+    else {
+      const passedTime = new Date(currentTime - lastCommitTime);
 
-    const resultDate = `${restDays}일 ${restTimeHours}시간 ${restTimeMinutes}분 ${restTimeSeconds}초`;
+      const passedTimeMonth = passedTime.getMonth();
+      const passedTimeDate = passedTime.getDate();
+      const passedTimeHours = passedTime.getHours();
+      const passedTimeMinutes = passedTime.getMinutes();
+      const passedTimeSeconds = passedTime.getSeconds();
+      
+      const restDays = this.dayCalculator({month: passedTimeMonth, date: passedTimeDate});
 
-    this.elLastCommitTime.textContent = resultDate;
+      const passedTimeMessage = `${restDays}일 ${passedTimeHours}시간 ${passedTimeMinutes}분 ${passedTimeSeconds}초`;
+
+      message = '마지막 커밋으로부터 ' + passedTimeMessage + ' 지났습니다';
+    }
+
+    this.elLastCommitTimeMessage.textContent = message;
   }
 
-  setRestTime() {
-    const currentTime = new Date();
-    const restHours = 23 - currentTime.getHours();
-    const restMinutes = 59 - currentTime.getMinutes();
-    const restSeconds = 59 - currentTime.getSeconds();
+  setRestTime({lastCommitDate}) {
+    const currentDate = new Date();
+
+    let restHours = 0;
+    let restMinutes = 0;
+    let restSeconds = 0;
+
+    if(!this.hasTodayCommit({currentDate, lastCommitDate})) {
+      restHours = 23 - currentDate.getHours();
+      restMinutes = 59 - currentDate.getMinutes();
+      restSeconds = 59 - currentDate.getSeconds();
+    }
 
     this.restTime = {hours: restHours, minutes: restMinutes, seconds: restSeconds};
 
     this.renderRestTime(this.restTime);
+  }
+
+  hasTodayCommit({currentDate, lastCommitDate}) {
+    return lastCommitDate.getFullYear() === currentDate.getFullYear()
+     && lastCommitDate.getMonth() === currentDate.getMonth()
+     && lastCommitDate.getDate() === currentDate.getDate();
   }
   
   // @parma {Object} timedata - {hours, minutes, seconds}
@@ -97,25 +122,28 @@ class DateCalculator {
     minutes = minutes.padStart(2,'0');
     seconds = seconds.padStart(2,'0');
 
-    this.elRestTime.textContent = `${hours}:${minutes}:${seconds}`
+    this.elRestTime.textContent = hours === '00' && minutes === '00' && seconds === '00' ? '완료' : `${hours}:${minutes}:${seconds}`;
     
-    setTimeout(this.setRestTime.bind(this), 1000);
+    this.setTimeoutID = setTimeout(this.setRestTime.bind(this, {lastCommitDate: this.lastCommitDate}), 1000);
   }
 
   renderCommitList(commits) {
-    this.elCommitList.innerHTML = commits.reduce((html, commit) => html += this.template(commit.message), '');
+    if(commits.length === 0) return;
+    else this.elCommitListWrap.innerHTML = '<ul class="commit_list">'
+     + commits.reduce((html, commit) => html += this.template(commit.message), '')
+     + '</ul>';
   }
 }
 
 
 const dateCalculator = new DateCalculator({
-  lastCommitTimeElem: document.querySelector('.last_commit_time'),
+  lastCommitTimeMessageElem: document.querySelector('.last_commit_time_message'),
   restTimeElem: document.querySelector('.rest_time'),
-  commitList: document.querySelector('.commit_list'),
+  commitListWrapElem: document.querySelector('.commit_list_wrap'),
   uri: 'http://13.209.88.99/api/commit/recent',
   ajax: ajax,
   dayCalculator: dayCalculator,
   template: template
 })
 
-dateCalculator.init();
+dateCalculator.start();
