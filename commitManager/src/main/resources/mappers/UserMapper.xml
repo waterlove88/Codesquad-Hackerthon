@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="com.developer.codesquad.mapper.UserMapper">
-    <select id="findUser" parameterType="User" resultType="User">
+    <select id="findUser" parameterType="com.developer.codesquad.domain.User" resultType="com.developer.codesquad.domain.User">
         SELECT
           id as login
           , name as name
@@ -10,7 +10,7 @@
         WHERE id = #{login}
     </select>
 
-    <insert id="insertUser" parameterType="User">
+    <insert id="insertUser" parameterType="com.developer.codesquad.domain.User">
         INSERT INTO users (
           id, name, email
         ) VALUES (
