@@ -2,6 +2,9 @@ package com.developer.codesquad.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +32,16 @@ import org.springframework.web.server.ResponseStatusException;
 import com.developer.codesquad.common.ResultMaster;
 import com.developer.codesquad.dao.BatchDao;
 import com.developer.codesquad.domain.BatchRequest;
+import com.developer.codesquad.domain.Event;
 import com.developer.codesquad.domain.TokenRequest;
 
 @Service
 public class BatchService {
 	@Autowired
 	private BatchDao batchDao;
+	
+	@Autowired
+	private ApiService apiService;
 	
 	private final RestTemplate restTemplate = new RestTemplate();
 	private final ParameterizedTypeReference<Map<String, Object>> TYPE_REF_MAP_STRING_OBJ = new ParameterizedTypeReference<Map<String, Object>>() {};
@@ -53,36 +60,46 @@ public class BatchService {
 	
 	private String pushApi = "https://fcm.googleapis.com/fcm/send";
 	
-	public ResultMaster sendPush() throws URISyntaxException {
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	
+	public ResultMaster sendPush() throws URISyntaxException, ParseException {
 		ResultMaster rm = new ResultMaster("200", "success");
 		List<BatchRequest> target = batchDao.sendPush();
-		
-		String[] registration_ids = new String[target.size()];
-		for(int i=0; i<target.size(); i++) {
-			registration_ids[i] = target.get(i).getToken();
-		}
 		
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("Content-Type", "application/json");
 		httpHeaders.set("Authorization", "key=" + serverKey);
 		
-		HashMap<String, Object> body = new HashMap<String, Object>();
-		body.put("registration_ids", registration_ids);
-		
-		HashMap<String, String> notification = new HashMap<String, String>();
-		notification.put("title","commitManager 알림");
-		notification.put("body", "최근 commit 시간 : ");
-		body.put("notification", notification);
-		
-		
-		RequestEntity<HashMap<String, Object>> requestEntity = new RequestEntity<>(body, httpHeaders, HttpMethod.POST, new URI(pushApi));
-		ResponseEntity<Map<String, Object>> responseEntity = restTemplate.exchange(requestEntity, TYPE_REF_MAP_STRING_OBJ);
+		for(int i=0; i<target.size(); i++) {
+			Event event = apiService.getRecentEventFromEventList(target.get(i).getId());
+			
+			Date currentTime = new Date();
+			String thisTime = format.format(currentTime);
+			
+			Date date1 = format.parse(thisTime);
+			Date date2 = format.parse(event.getCreatedAt());
+			
+			if(date1.compareTo(date2) > 0) {
+				long calDate = date1.getTime() - date2.getTime();
+				long calDateDays = calDate / (24*60*60*1000); 
+				
+				HashMap<String, Object> body = new HashMap<String, Object>();
+				body.put("to", target.get(i).getToken());
+				
+				HashMap<String, String> notification = new HashMap<String, String>();
+				notification.put("title","commitManager 알림");
+				notification.put("body", "최근 commit 시간 : "+event.getCreatedAt() +"\n마지막으로 commit 한지 "+calDateDays+"일 지났습니다.");
+				body.put("notification", notification);
+				
+				RequestEntity<HashMap<String, Object>> requestEntity = new RequestEntity<>(body, httpHeaders, HttpMethod.POST, new URI(pushApi));
+				ResponseEntity<Map<String, Object>> responseEntity = restTemplate.exchange(requestEntity, TYPE_REF_MAP_STRING_OBJ);
 
-		if (responseEntity.getStatusCode().is4xxClientError() || responseEntity.getStatusCode().is5xxServerError()) {
-			throw new ResponseStatusException(responseEntity.getStatusCode());
+				if (responseEntity.getStatusCode().is4xxClientError() || responseEntity.getStatusCode().is5xxServerError()) {
+					throw new ResponseStatusException(responseEntity.getStatusCode());
+				}
+			}
 		}
 		
-		rm.setBody(responseEntity.getBody());
 		return rm;
 	}
 	
