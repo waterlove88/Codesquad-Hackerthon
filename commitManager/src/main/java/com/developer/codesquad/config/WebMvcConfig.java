@@ -31,15 +31,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(
                 "/webjars/**"
-                , "/img/**"
-                , "/css/**"
-                , "/js/**"
+                , "/resources/static/**"
         )
                 .addResourceLocations(
                         "classpath:/META-INF/resources/webjars/"
-                        , "classpath:/static/img/"
-                        , "classpath:/static/css/"
-                        , "classpath:/static/js/"
+                        , "classpath:/static/"
                 );
     }
 

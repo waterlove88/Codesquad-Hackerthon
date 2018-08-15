@@ -1,9 +1,8 @@
 package com.developer.codesquad.controller;
 
-import java.net.URISyntaxException;
-import java.util.Map;
-
 import com.developer.codesquad.domain.User;
+import com.developer.codesquad.service.AccessTokenService;
+import com.developer.codesquad.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.developer.codesquad.service.AccessTokenService;
-import com.developer.codesquad.service.UserService;
-
 import javax.servlet.http.HttpSession;
+import java.net.URISyntaxException;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -58,14 +55,25 @@ public class LoginController {
     @GetMapping("/oauth/authorized")
     public String getUserInfo(@RequestParam("code") final String code,
                               final HttpSession httpSession) throws URISyntaxException {
-        Map<String, Object> userMap = userService.getUserInfo(accessTokenService.getAccessToken(code));
-        httpSession.setAttribute("USER_INFO", makeUserInfo(userMap));
-        return "main";
+        String accessToken = accessTokenService.getAccessToken(code);
+        Map<String, Object> userMap = userService.getUserInfo(accessToken);
+        userMap.put("accessToken", accessToken);
+
+        User user = makeUserInfo(userMap);
+        httpSession.setAttribute("USER_INFO", user);
+
+        userService.mergeUser(user);
+
+        return "redirect:/main";
     }
 
     private User makeUserInfo(Map<String, Object> userMap) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.convertValue(userMap, User.class);
+        User user = new User();
+        user.setLogin((String) userMap.get("login"));
+        user.setName((String) userMap.get("name"));
+        user.setEmail((String) userMap.get("email"));
+        user.setAccessToken((String) userMap.get("accessToken"));
+        return user;
     }
 
 }

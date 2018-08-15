@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="/resources/static/css/style.css">
 </head>
 <body>
   <div class="nickname_wrap">
     <span class="nickname"></span>
-    <span>님!</span>
+    <span th:text="${session.USER_INFO.name}"></span>님!
   </div>
   <div class='last_commit_time_wrap'>
     <span>마지막 커밋으로부터</span>
@@ -24,5 +24,5 @@
   </div>
   <ul class="commit_list"></ul>
 </body>
-<script src='./src/index.js'></script>
+<script src='/resources/static/js/index.js'></script>
 </html>
