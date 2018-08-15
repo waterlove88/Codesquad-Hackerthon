@@ -26,18 +26,11 @@ extension UserInfoViewController {
   }
   
   func bindEvents() {
-    NotificationCenter.default.addObserver(self, selector: #selector(updateDeviceToken(_:)), name: .postDeviceToken, object: nil)
-    
-    App.preferenceManager.rx.name.subscribe(onNext: { [weak self] (name) in
-      guard let `self` = self else { return }
-      self.userLabel.text = name
-    }).disposed(by: disposeBag)
-  }
-  
-  @objc func updateDeviceToken(_ notification: Notification) {
-    if let userInfo = notification.userInfo,
-      let deviceToken = userInfo["deviceToken"] as? String {
-      App.api.updateDeviceToken("yuaming", deviceToken)
-    }
+    App.preferenceManager.rx.name
+      .filter { $0 != nil }
+      .subscribe(onNext: { [weak self] (name) in
+        guard let `self` = self else { return }
+        self.userLabel.text = name
+      }).disposed(by: disposeBag)
   }
 }

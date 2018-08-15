@@ -23,6 +23,8 @@ class LoginViewController: BaseViewController {
 
 fileprivate extension LoginViewController {
   func bindEvent() {
+    NotificationCenter.default.addObserver(self, selector: #selector(self.updateDeviceToken(_:)), name: .postDeviceToken, object: nil)
+    
     enteredGithubButton.rx.tap.flatMap { _ in
         return App.api.getToken()
       }.subscribe(onNext: { arguments in
@@ -31,6 +33,7 @@ fileprivate extension LoginViewController {
         App.preferenceManager.refreshToken = refershToken
         App.preferenceManager.loginId = user.login
         App.preferenceManager.name = user.name
+        App.appDelegate.postDeviceToken()
       }, onError: {[weak self] (error) in
         guard let `self` = self else { return }
         let alert  = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
@@ -42,6 +45,14 @@ fileprivate extension LoginViewController {
       .subscribe(onNext: { [weak self] _ in
         self?.dismiss(animated: true, completion: nil)
       }).disposed(by: disposeBag)
+  }
+  
+  @objc func updateDeviceToken(_ notification: Notification) {
+    if let userInfo = notification.userInfo,
+      let deviceToken = userInfo["deviceToken"] as? String,
+      let id = App.preferenceManager.loginId {
+      App.api.updateDeviceToken(id, deviceToken)
+    }
   }
 }
 

@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     application.registerForRemoteNotifications()
     requestNotificationAuthorization(application)
-    postDeviceToken()
-    
     LoginViewController.register()
     
     return true
