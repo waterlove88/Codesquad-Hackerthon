@@ -12,7 +12,6 @@ class UserInfoViewController: BaseViewController {
   @IBOutlet weak var userLabel: UILabel!
   @IBOutlet weak var timeLabel: UILabel!
   @IBOutlet weak var logoutButton: UIBarButtonItem!
-  @IBOutlet weak var commitMessageLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -37,14 +36,10 @@ fileprivate extension UserInfoViewController {
         self.userLabel.text = name
       }).disposed(by: disposeBag)
     
-    App.api.fetchPushEvent().subscribe(onNext: { [weak self] (pushEvent) in
-      guard let `self` = self else { return }      
-      guard let commitMessage = pushEvent.commits?.first else {
-        return
-      }
-      
-      self.timeLabel.text = "최종 커밋 일자, 시간 \(String(describing: pushEvent.createdAt)) 입니다:)"
-      self.commitMessageLabel.text = String(describing: commitMessage)
-    }).disposed(by: disposeBag)
+    App.api.fetchPushEvent { [weak self] (pushEvent) in
+      guard let `self` = self else { return }
+      guard let createdAt = pushEvent.createdAt else { return }
+      self.timeLabel.text = "최종 커밋 일자, 시간 \(createdAt) 입니다:)"
+    }
   }
 }

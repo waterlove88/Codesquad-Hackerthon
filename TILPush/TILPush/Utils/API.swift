@@ -1,4 +1,4 @@
-//
+
 //  API.swift
 //  TILPush
 //
@@ -20,14 +20,6 @@ struct API {
     responseType: "code"
   )
   
-  var decoder: JSONDecoder {
-    let decoder = JSONDecoder()
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-    decoder.dateDecodingStrategy = .formatted(formatter)
-    return decoder
-  }
-  
   func getToken() -> Observable<(String, String, User)> {
     return Observable.create({ (observer) -> Disposable in
       let callbackUrl = URL(string: "PushApp://oauth-callback/github")!
@@ -38,7 +30,7 @@ struct API {
         Alamofire.request("https://api.github.com/user?access_token=\(oauthToken)")
           .response(completionHandler: { (result) in
             guard let data = result.data,
-              let user = try? self.decoder.decode(User.self, from: data) else { return }
+              let user = try? JSONDecoder().decode(User.self, from: data) else { return }
             
             observer.onNext((oauthToken, refreshToken, user))
             observer.onCompleted()
@@ -50,15 +42,17 @@ struct API {
     })
   }
   
-  func fetchPushEvent() -> Observable<PushEvent> {
-    guard let loginId = App.preferenceManager.loginId else { return Observable.empty() }
-    return Router.pushEvent(loginId).buildRequest().map { data in
-      guard let pushEvent = try? self.decoder.decode(PushEvent.self, from: data) else {
-        return PushEvent()
-      }
+  func fetchPushEvent(_ completion: @escaping ((PushEvent)->Void)) {
+    guard let loginId = App.preferenceManager.loginId else { return }
+    Alamofire.request("http://13.209.88.99/api/commit/recent?login=\(loginId)")
+      .response(completionHandler: { (result) in
+        guard let data = result.data,
+          let pushEvent = try? JSONDecoder().decode(PushEvent.self, from: data) else {
+          return
+        }
       
-      return pushEvent
-    }
+        completion(pushEvent)
+    })
   }
   
   func updateDeviceToken(_ loginId: String, _ token: String) {
