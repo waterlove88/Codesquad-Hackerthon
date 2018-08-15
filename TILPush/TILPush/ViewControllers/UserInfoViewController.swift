@@ -20,13 +20,18 @@ class UserInfoViewController: BaseViewController {
   }
 }
 
-fileprivate extension UserInfoViewController {
+extension UserInfoViewController {
   func bindUI() {
     navigationController?.navigationBar.isHidden = true
   }
   
   func bindEvents() {
     NotificationCenter.default.addObserver(self, selector: #selector(updateDeviceToken(_:)), name: .postDeviceToken, object: nil)
+    
+    App.preferenceManager.rx.name.subscribe(onNext: { [weak self] (name) in
+      guard let `self` = self else { return }
+      self.userLabel.text = name
+    }).disposed(by: disposeBag)
   }
   
   @objc func updateDeviceToken(_ notification: Notification) {

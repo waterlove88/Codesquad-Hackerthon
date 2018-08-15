@@ -25,10 +25,12 @@ fileprivate extension LoginViewController {
   func bindEvent() {
     enteredGithubButton.rx.tap.flatMap { _ in
         return App.api.getToken()
-      }.subscribe(onNext: { tokenTuple in
-        let (token, refershToken) = tokenTuple
+      }.subscribe(onNext: { arguments in
+        let (token, refershToken, user) = arguments
         App.preferenceManager.token = token
         App.preferenceManager.refreshToken = refershToken
+        App.preferenceManager.loginId = user.login
+        App.preferenceManager.name = user.name
       }, onError: {[weak self] (error) in
         guard let `self` = self else { return }
         let alert  = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)

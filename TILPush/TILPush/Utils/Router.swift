@@ -13,18 +13,15 @@ import Alamofire
 import RxAlamofire
 
 enum Router {
-  case user(String)
   case pushEvent(String)
   case setToken
 }
 
 extension Router {
   static let baseURLString = "http://13.209.88.99"
-  
+
   var path: String {
     switch self {
-    case .user(let token):
-      return "/\(token)"
     case .pushEvent(let id):
       return "/\(id)"
     case .setToken:
@@ -33,17 +30,13 @@ extension Router {
   }
   
   var url: URL? {
-    guard let url = try? Router.baseURLString.asURL() else {
-      return nil
-    }
+    guard let url = try? Router.baseURLString.asURL() else { return nil }
     
     return url.appendingPathComponent(path)
   }
   
   var method: HTTPMethod {
     switch self {
-    case .user:
-      return .get
     case .pushEvent:
       return .get
     case .setToken:
@@ -53,8 +46,6 @@ extension Router {
   
   var parameterEncoding: ParameterEncoding {
     switch self {
-    case .user:
-      return URLEncoding.default
     case .pushEvent:
       return URLEncoding.default
     case .setToken:
@@ -84,16 +75,17 @@ extension Router {
     return Router.manager.rx
       .request(method, url)
       .validate(statusCode: 200..<300)
-      .data().observeOn(MainScheduler.instance)
+      .data()
+      .observeOn(MainScheduler.instance)
   }
-  
+
   func buildRequest(parameters: Parameters, headers: HTTPHeaders? = nil) {
     guard let url = url else { return }
     
     Alamofire.request(url,
-                      method: method,
+                      method: .post,
                       parameters: parameters,
-                      encoding: parameterEncoding,
+                      encoding: URLEncoding.methodDependent,
                       headers: headers)
   }
 }
