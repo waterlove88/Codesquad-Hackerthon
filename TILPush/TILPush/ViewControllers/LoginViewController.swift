@@ -20,7 +20,6 @@ class LoginViewController: BaseViewController {
   }
 }
 
-
 fileprivate extension LoginViewController {
   func bindEvent() {
     NotificationCenter.default.addObserver(self, selector: #selector(self.updateDeviceToken(_:)), name: .postDeviceToken, object: nil)

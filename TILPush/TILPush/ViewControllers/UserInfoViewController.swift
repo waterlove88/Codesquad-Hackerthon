@@ -10,7 +10,7 @@ import UIKit
 
 class UserInfoViewController: BaseViewController {
   @IBOutlet weak var userLabel: UILabel!
-  @IBOutlet weak var remainingTimeLabel: UILabel!
+  @IBOutlet weak var timeLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -20,7 +20,7 @@ class UserInfoViewController: BaseViewController {
   }
 }
 
-extension UserInfoViewController {
+fileprivate extension UserInfoViewController {
   func bindUI() {
     navigationController?.navigationBar.isHidden = true
   }
@@ -32,5 +32,10 @@ extension UserInfoViewController {
         guard let `self` = self else { return }
         self.userLabel.text = name
       }).disposed(by: disposeBag)
+    
+    App.api.fetchPushEvent().subscribe(onNext: { [weak self] (pushEvent) in
+      guard let `self` = self else { return }
+      self.timeLabel.text = "최종 커밋 일자, 시간 \(String(describing: pushEvent.createdAt)) 입니다:)"
+    }).disposed(by: disposeBag)
   }
 }
