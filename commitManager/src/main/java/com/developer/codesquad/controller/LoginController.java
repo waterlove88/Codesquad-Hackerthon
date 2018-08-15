@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpSession;
 import java.net.URISyntaxException;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -70,9 +71,9 @@ public class LoginController {
     private User makeUserInfo(Map<String, Object> userMap) {
         User user = new User();
         user.setLogin((String) userMap.get("login"));
-        user.setName((String) userMap.get("name"));
-        user.setEmail((String) userMap.get("email"));
-        user.setAccessToken((String) userMap.get("accessToken"));
+        user.setName(String.valueOf(Optional.ofNullable(userMap.get("name")).orElse(null)));
+        user.setEmail(String.valueOf(Optional.ofNullable(userMap.get("email")).orElse(null)));
+        user.setAccessToken(String.valueOf(Optional.ofNullable(userMap.get("accessToken")).orElse(null)));
         return user;
     }
 
