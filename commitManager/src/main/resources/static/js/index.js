@@ -33,12 +33,10 @@ const dayCalculator = function({month, date}) {
 }
 
 class DateCalculator {
-  constructor({nicknameElem, lastCommitTimeElem, restTimeElem, commitList, nickname, uri, ajax, dayCalculator, template}) {
-    this.elNicknameElem = nicknameElem;
+  constructor({lastCommitTimeElem, restTimeElem, commitList, uri, ajax, dayCalculator, template}) {
     this.elLastCommitTime = lastCommitTimeElem;
     this.elRestTime = restTimeElem;
     this.elCommitList = commitList;
-    this.nickname = nickname;
     this.uri = uri;
     this.ajax = ajax
     this.dayCalculator = dayCalculator;
@@ -47,12 +45,7 @@ class DateCalculator {
   }
 
   init() {
-    this.setName(this.nickname);
     this.ajax({uri: this.uri, callback: this.set.bind(this)});
-  }
-
-  setName(nickname) {
-    this.elNicknameElem.textContent = nickname;
   }
 
   set(ajaxData) {
@@ -116,11 +109,9 @@ class DateCalculator {
 
 
 const dateCalculator = new DateCalculator({
-  nicknameElem: document.querySelector('.nickname'),
   lastCommitTimeElem: document.querySelector('.last_commit_time'),
   restTimeElem: document.querySelector('.rest_time'),
   commitList: document.querySelector('.commit_list'),
-  nickname: 'mando',
   uri: 'http://13.209.88.99/api/commit/recent',
   ajax: ajax,
   dayCalculator: dayCalculator,

@@ -4,7 +4,7 @@
   font-weight: lighter;
 }
 
-body {
+.whole_wrap {
   padding: 100px 300px;
   position: relative;
 }
