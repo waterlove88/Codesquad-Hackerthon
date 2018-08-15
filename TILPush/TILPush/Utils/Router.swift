@@ -23,7 +23,7 @@ extension Router {
   var path: String {
     switch self {
     case .pushEvent(let id):
-      return "/\(id)"
+      return "/api/commit/recent?login=\(id)"
     case .setToken:
       return "/batch/setToken"
     }

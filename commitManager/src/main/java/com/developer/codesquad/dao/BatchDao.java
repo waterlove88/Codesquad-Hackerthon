@@ -18,6 +18,10 @@ public class BatchDao {
 		return sqlSession.selectList("batchMapper.selectToken");
 	}
 	
+	public List<BatchRequest> sendMail() {
+		return sqlSession.selectList("batchMapper.selectMail");
+	}
+	
 	public int isPushAgree(TokenRequest tokenRequest) {
 		return sqlSession.selectOne("batchMapper.isPushAgree", tokenRequest);
 	}

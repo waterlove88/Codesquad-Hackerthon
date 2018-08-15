@@ -7,6 +7,12 @@
          ]]>
     </select>
     
+    <select id="selectMail" resultType="com.developer.codesquad.domain.BatchRequest">
+        <![CDATA[
+            SELECT email FROM users WHERE email is not null
+         ]]>
+    </select>
+    
     <select id="isPushAgree" parameterType="com.developer.codesquad.domain.TokenRequest" resultType="java.lang.Integer">
         <![CDATA[
             SELECT count(*) as count FROM users WHERE id=#{id} AND token=#{token}

@@ -19,5 +19,117 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TILPush/ViewControllers/UserInfoViewController.swift"
+            timestampString = "556005603.196221"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "bindEvents()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TILPush.UserInfoViewController.(bindEvents in _9BBA4DC4460BA6E82B21C629E4A3CE79)() -&gt; ()"
+                  moduleName = "TILPush"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yuaming/dev/workspaces/for-developer/TILPush/TILPush/ViewControllers/UserInfoViewController.swift"
+                  timestampString = "556005475.581388"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "1372">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 (TILPush.PushEvent) -&gt; () in TILPush.UserInfoViewController.(bindEvents in _9BBA4DC4460BA6E82B21C629E4A3CE79)() -&gt; ()"
+                  moduleName = "TILPush"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yuaming/dev/workspaces/for-developer/TILPush/TILPush/ViewControllers/UserInfoViewController.swift"
+                  timestampString = "556005475.585987"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TILPush/Utils/API.swift"
+            timestampString = "556005603.196287"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "fetchPushEvent()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TILPush/Utils/API.swift"
+            timestampString = "556005603.1963331"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "fetchPushEvent()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TILPush.API.fetchPushEvent() -&gt; RxSwift.Observable&lt;TILPush.PushEvent&gt;"
+                  moduleName = "TILPush"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yuaming/dev/workspaces/for-developer/TILPush/TILPush/Utils/API.swift"
+                  timestampString = "556005036.8545769"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data) -&gt; TILPush.PushEvent in TILPush.API.fetchPushEvent() -&gt; RxSwift.Observable&lt;TILPush.PushEvent&gt;"
+                  moduleName = "TILPush"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yuaming/dev/workspaces/for-developer/TILPush/TILPush/Utils/API.swift"
+                  timestampString = "556005036.856275"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
