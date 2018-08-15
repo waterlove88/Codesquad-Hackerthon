@@ -13,46 +13,50 @@ import Alamofire
 import RxAlamofire
 
 enum Router {
-  case user(String)
   case pushEvent(String)
+  case setToken
 }
 
 extension Router {
-  static let baseURLString = "https://api.github.com"
-  
+  static let baseURLString = "http://13.209.88.99"
+
   var path: String {
     switch self {
-    case .user(let token):
-      return "/\(token)"
     case .pushEvent(let id):
       return "/\(id)"
+    case .setToken:
+      return "/batch/setToken"
     }
   }
   
   var url: URL? {
-    guard let url = try? Router.baseURLString.asURL() else {
-      return nil
-    }
+    guard let url = try? Router.baseURLString.asURL() else { return nil }
     
     return url.appendingPathComponent(path)
   }
   
   var method: HTTPMethod {
     switch self {
-    case .user:
-      return .get
     case .pushEvent:
       return .get
+    case .setToken:
+      return .post
     }
   }
   
   var parameterEncoding: ParameterEncoding {
     switch self {
-    case .user:
-      return URLEncoding.default
     case .pushEvent:
       return URLEncoding.default
+    case .setToken:
+      return URLEncoding.methodDependent
     }
+  }
+  
+  static var postedHeaders: HTTPHeaders {
+    var headers: HTTPHeaders = [:]
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    return headers
   }
   
   static let manager: Alamofire.SessionManager = {
@@ -71,19 +75,17 @@ extension Router {
     return Router.manager.rx
       .request(method, url)
       .validate(statusCode: 200..<300)
-      .data().observeOn(MainScheduler.instance)
+      .data()
+      .observeOn(MainScheduler.instance)
   }
-  
-  func buildRequest(parameters: Parameters) -> Observable<Data> {
-    guard let url = url else { return Observable.empty() }
+
+  func buildRequest(parameters: Parameters, headers: HTTPHeaders? = nil) {
+    guard let url = url else { return }
     
-    return Router.manager.rx
-      .request(method,
-               url,
-               parameters: parameters,
-               encoding: parameterEncoding,
-               headers: nil)
-      .validate(statusCode: 200..<300)
-      .data().observeOn(MainScheduler.instance)
+    Alamofire.request(url,
+                      method: .post,
+                      parameters: parameters,
+                      encoding: URLEncoding.methodDependent,
+                      headers: headers)
   }
 }

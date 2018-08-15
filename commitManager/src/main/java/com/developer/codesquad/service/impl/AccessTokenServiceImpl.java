@@ -34,7 +34,6 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         final RequestEntity<AccessTokenRequest> requestEntity = new RequestEntity<>(accessTokenRequest, HttpMethod.POST,
                 new URI("https://github.com/login/oauth/access_token"));
         final ResponseEntity<Map<String, String>> responseEntity = restTemplate.exchange(requestEntity, TYPE_REF_MAP_STRING_STRING);
-
         final Map<String, String> responseBody = responseEntity.getBody();
 
         if (responseBody != null) {

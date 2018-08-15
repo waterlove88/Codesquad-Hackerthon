@@ -28,30 +28,26 @@ struct API {
     return decoder
   }
   
-  func getToken() -> Observable<(String, String)> {
+  func getToken() -> Observable<(String, String, User)> {
     return Observable.create({ (observer) -> Disposable in
       let callbackUrl = URL(string: "PushApp://oauth-callback/github")!
       self.githubOAuth.authorize(withCallbackURL: callbackUrl, scope: "user, repo", state: "state", success: { (credential, response, parameters) in
         let oauthToken = credential.oauthToken
         let refreshToken = credential.oauthRefreshToken
-        observer.onNext((oauthToken, refreshToken))
-        observer.onCompleted()
+        
+        Alamofire.request("https://api.github.com/user?access_token=\(oauthToken)")
+          .response(completionHandler: { (result) in
+            guard let data = result.data,
+              let user = try? self.decoder.decode(User.self, from: data) else { return }
+            
+            observer.onNext((oauthToken, refreshToken, user))
+            observer.onCompleted()
+          })
       }, failure: { error in
         observer.onError(error)
       })
       return Disposables.create { }
     })
-  }
-  
-  func fetchUserInfo() -> Observable<User> {
-    guard let token = App.preferenceManager.token else { return Observable.empty() }
-    return Router.user(token).buildRequest().map { data in
-      guard let user = try? self.decoder.decode(User.self, from: data) else {
-        return User()
-      }
-      
-      return user
-    }
   }
   
   func fetchPushEvent() -> Observable<PushEvent> {
@@ -63,5 +59,10 @@ struct API {
       
       return pushEvent
     }
+  }
+  
+  func updateDeviceToken(_ loginId: String, _ token: String) {
+    let parameters = ["id": loginId, "token": token]
+    Router.setToken.buildRequest(parameters: parameters, headers: Router.postedHeaders)
   }
 }

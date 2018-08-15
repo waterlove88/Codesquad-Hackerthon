@@ -14,9 +14,11 @@ final class PreferenceManager {
     case tokenKey
     case refreshTokenKey
     case loginId
+    case name
   }
   
   fileprivate var tokenSubject: BehaviorSubject<String?> = BehaviorSubject(value: UserDefaults.standard.string(forKey: Constants.tokenKey.rawValue))
+  fileprivate var nameSubject: BehaviorSubject<String?> = BehaviorSubject(value: UserDefaults.standard.string(forKey: Constants.name.rawValue))
   
   var token: String? {
     get  {
@@ -48,12 +50,27 @@ final class PreferenceManager {
       UserDefaults.standard.set(newValue, forKey: Constants.loginId.rawValue)
     }
   }
+  
+  var name: String? {
+    get {
+      let name = UserDefaults.standard.string(forKey: Constants.name.rawValue)
+      return name
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: Constants.name.rawValue)
+      nameSubject.onNext(newValue)
+    }
+  }
 }
 
 extension PreferenceManager: ReactiveCompatible {}
 
 extension Reactive where Base: PreferenceManager {
-  var  token: Observable<String?> {
+  var token: Observable<String?> {
     return self.base.tokenSubject.asObservable()
+  }
+  
+  var name: Observable<String?> {
+    return self.base.nameSubject.asObservable()
   }
 }

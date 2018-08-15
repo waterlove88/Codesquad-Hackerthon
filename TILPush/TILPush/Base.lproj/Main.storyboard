@@ -61,8 +61,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 시간 00 분 남았음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IzJ-JG-3fo">
-                                <rect key="frame" x="59.5" y="265.5" width="256.5" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IzJ-JG-3fo">
+                                <rect key="frame" x="151" y="265.5" width="73.5" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -77,9 +77,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J7C-Xy-b2L"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Xwh-VJ-42d"/>
+                    <navigationItem key="navigationItem" id="NHS-xu-HUQ">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Ww8-XB-MeS">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="remainingTimeLabel" destination="IzJ-JG-3fo" id="79g-3t-0Lh"/>
+                        <outlet property="logoutButton" destination="Ww8-XB-MeS" id="67A-Yl-tTQ"/>
+                        <outlet property="timeLabel" destination="IzJ-JG-3fo" id="ZWB-NC-Fmd"/>
                         <outlet property="userLabel" destination="zbd-Kw-hUg" id="2dn-dU-BOc"/>
                     </connections>
                 </viewController>

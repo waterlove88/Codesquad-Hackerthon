@@ -1,6 +1,6 @@
 package com.developer.codesquad.controller;
 
-import java.util.HashMap;
+import java.net.URISyntaxException;
 
 import javax.validation.Valid;
 
@@ -23,7 +23,7 @@ public class BatchController {
 	private BatchService batchService;
 	
 	@GetMapping("/sendPush")
-	public String sendPush() {
+	public ResultMaster sendPush() throws URISyntaxException {
 		return batchService.sendPush();
 	}
 	
@@ -33,20 +33,13 @@ public class BatchController {
 			return new ResultMaster("1001", "Bad request");
 		}
 		
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("isPushAgree", "Y");
-		ResultMaster rm = new ResultMaster("200", "success");
-		rm.setBody(map);
-		
-		return rm;
-		
-		//return batchService.isPushAgree(tokenRequest);
+		return batchService.isPushAgree(tokenRequest);
 	}
 	
 	@PostMapping("/setToken")
-	public String setToken(@ModelAttribute @Valid TokenRequest tokenRequest, BindingResult bindingResult) {
+	public ResultMaster setToken(@ModelAttribute @Valid TokenRequest tokenRequest, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return "bad request";
+			return new ResultMaster("1001", "Bad request");
 		}
 		
 		return batchService.setToken(tokenRequest);
