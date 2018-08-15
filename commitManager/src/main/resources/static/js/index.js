@@ -1,20 +1,20 @@
-// const ajax = function({uri, callback}) {
-//   const x = new XMLHttpRequest();
-//   x.addEventListener('load', () => {
-//     const data = JSON.parse(x.response);
-//     callback(data);
-//   })
-//   x.open('GET', uri);
-//   x.send();
-// }
-
 const ajax = function({uri, callback}) {
+  const x = new XMLHttpRequest();
+  x.addEventListener('load', () => {
+    const data = JSON.parse(x.response);
+    callback(data);
+  })
+  x.open('GET', uri);
+  x.send();
+}
+
+/*const ajax = function({uri, callback}) {
   const dummyData = {
     createdAt: "2018-08-14 08:02:13",
     commitList: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
   }
   callback(dummyData);
-}
+}*/
 
 const template = function(message) {
   return `<li class='commit_list_item'>${message}</li>`;
@@ -140,7 +140,8 @@ const dateCalculator = new DateCalculator({
   lastCommitTimeMessageElem: document.querySelector('.last_commit_time_message'),
   restTimeElem: document.querySelector('.rest_time'),
   commitListWrapElem: document.querySelector('.commit_list_wrap'),
-  uri: 'http://13.209.88.99/api/commit/recent',
+  /*uri: 'http://13.209.88.99/api/commit/recent',*/
+    uri: 'http://localhost/api/commit/recent',
   ajax: ajax,
   dayCalculator: dayCalculator,
   template: template

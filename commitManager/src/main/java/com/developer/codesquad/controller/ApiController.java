@@ -1,43 +1,38 @@
 package com.developer.codesquad.controller;
 
-import com.developer.codesquad.domain.Commit;
 import com.developer.codesquad.domain.Event;
+import com.developer.codesquad.domain.User;
+import com.developer.codesquad.service.ApiService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.lang.reflect.Type;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@SessionAttributes("USER_INFO")
 public class ApiController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ApiController.class);
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private ApiService apiService;
 
     @Value("${github.oauth.client_id}")
     private String clientId;
@@ -46,8 +41,13 @@ public class ApiController {
     private String clientSecret;
 
     @GetMapping("/commit/recent")
-    public ResponseEntity getCommitRecent(@RequestParam("login") String loginId) throws URISyntaxException {
-        Event event = new Event();
+    public ResponseEntity getCommitRecent(@RequestParam(value = "login", required = false) String loginId,
+                                          @ModelAttribute(value = "USER_INFO", binding = false) User user) {
+
+        if (StringUtils.isEmpty(loginId)) {
+            loginId = user.getLogin();
+        }
+
         Gson gson = new Gson();
 
         StringBuilder stringBuilder = new StringBuilder("https://api.github.com/users/");
@@ -67,22 +67,8 @@ public class ApiController {
         LOGGER.debug("eventList > " + gson.toJson(eventList));
 
         if (eventList != null && eventList.size() > 0) {
-            JsonObject recentEvent = (JsonObject) eventList.get(0);
-            LOGGER.debug("recentEvent > " + recentEvent);
-            JsonObject payload = (JsonObject) recentEvent.get("payload");
-            JsonArray commits = payload.getAsJsonArray("commits");
-            Type commitType = new TypeToken<List<Commit>>(){}.getType();
-            List<Commit> commitList = gson.fromJson(commits.toString(), commitType);
 
-            event.setLogin(((JsonObject)recentEvent.get("actor")).get("login").getAsString());
-            event.setCommitList(commitList);
-
-            ZoneId zoneId = ZoneId.of("Asia/Seoul");
-            String createdAt = recentEvent.get("created_at").getAsString();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").withZone(zoneId);
-            ZonedDateTime zonedDateTime = ZonedDateTime.parse(createdAt, formatter).withZoneSameInstant(zoneId);
-            DateTimeFormatter realFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            event.setCreatedAt(zonedDateTime.format(realFormatter));
+            Event event = apiService.getRecentEventFromEventList(eventList);
 
             return new ResponseEntity<>(event, HttpStatus.OK);
         } else {

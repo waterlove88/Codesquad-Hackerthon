@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
   <style>
     :root {
       background: #f5f5f5;
@@ -46,9 +51,19 @@
 </head>
 <body>
   <div class="title">Commit Manager</div>
-  <div class="login">
+  <div class="login" id="btnGithubLogin">
     <span>Login with github</span>
     <div class="image"></div>
   </div>
 </body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function(){
+
+    }).on('click', '#btnGithubLogin', function() {
+        location.href = /*[[${oauthUrl}]]*/;
+    });
+
+    /*]]>*/
+</script>
 </html>
