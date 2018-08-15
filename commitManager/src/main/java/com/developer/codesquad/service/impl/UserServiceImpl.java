@@ -1,6 +1,9 @@
 package com.developer.codesquad.service.impl;
 
+import com.developer.codesquad.domain.User;
+import com.developer.codesquad.mapper.UserMapper;
 import com.developer.codesquad.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -24,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public List<Object> getUserEmails(final String accessToken) throws URISyntaxException {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -43,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> getUserInfo(String accessToken) throws URISyntaxException {
+    public Map<String, Object> getUserInfo(final String accessToken) throws URISyntaxException {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Authorization", "token " + accessToken);
 
@@ -58,5 +64,14 @@ public class UserServiceImpl implements UserService {
         }
 
         return responseEntity.getBody();
+    }
+
+    @Override
+    public void mergeUser(User param) {
+        User user = userMapper.findUser(param);
+
+        if (user == null) {
+            userMapper.insertUser(param);
+        }
     }
 }

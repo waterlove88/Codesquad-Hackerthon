@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="batchMapper">
-    <select id="selectTest" resultType="com.developer.codesquad.domain.BatchRequest">
+    <select id="selectToken" resultType="com.developer.codesquad.domain.BatchRequest">
         <![CDATA[
-            SELECT * FROM test
+            SELECT token FROM users WHERE token is not null
+         ]]>
+    </select>
+    
+    <select id="isPushAgree" parameterType="com.developer.codesquad.domain.TokenRequest" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT count(*) as count FROM users WHERE id=#{id} AND token=#{token}
          ]]>
     </select>
     
     <update id="updateToken" parameterType="com.developer.codesquad.domain.TokenRequest">
    		<![CDATA[
-            INSERT INTO test (id, token) VALUES (#{id}, #{token})  
+            INSERT INTO users (id, token) VALUES (#{id}, #{token})  
 			ON DUPLICATE KEY UPDATE id=#{id}, token=#{token};
          ]]>
     </update>

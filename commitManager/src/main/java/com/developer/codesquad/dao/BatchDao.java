@@ -15,7 +15,11 @@ public class BatchDao {
     private SqlSessionTemplate sqlSession;
 
 	public List<BatchRequest> sendPush() {
-		return sqlSession.selectList("batchMapper.selectTest");
+		return sqlSession.selectList("batchMapper.selectToken");
+	}
+	
+	public int isPushAgree(TokenRequest tokenRequest) {
+		return sqlSession.selectOne("batchMapper.isPushAgree", tokenRequest);
 	}
 	
 	public int setToken(TokenRequest tokenRequest) {
