@@ -66,7 +66,7 @@ final class PreferenceManager {
   var email: String? {
     get {
       let email = UserDefaults.standard.string(forKey: Constants.email.rawValue)
-      return loginId
+      return email
     }
     set {
       UserDefaults.standard.set(newValue, forKey: Constants.email.rawValue)
