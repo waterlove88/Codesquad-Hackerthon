@@ -21,8 +21,8 @@
     
     <update id="updateToken" parameterType="com.developer.codesquad.domain.TokenRequest">
    		<![CDATA[
-            INSERT INTO users (id, token) VALUES (#{id}, #{token})  
-			ON DUPLICATE KEY UPDATE id=#{id}, token=#{token};
+            INSERT INTO users (id, token, email) VALUES (#{id}, #{token}, #{email})  
+			ON DUPLICATE KEY UPDATE id=#{id}, token=#{token}, email=#{email};
          ]]>
     </update>
 </mapper>
