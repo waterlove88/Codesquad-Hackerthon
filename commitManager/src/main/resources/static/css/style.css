@@ -9,7 +9,7 @@
   position: relative;
 }
 
-.main_wrap {
+.commit_wrap {
   padding: 0px 150px;
 }
 
@@ -18,6 +18,7 @@
   color: rgba(46, 1, 248, 0.295);
   text-align: center;
   font-size: 4.5rem;
+  margin-bottom: 60px;
 }
 
 /* nickname */
@@ -46,6 +47,11 @@
 .rest_time_wrap {
   text-align: center;
   margin: 20px 0px;
+}
+
+.rest_time_message {
+  color: #aaa;
+  margin-bottom: 5px;
 }
 
 .rest_time {

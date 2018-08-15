@@ -12,20 +12,17 @@
   <div class="whole_wrap">
     <div class="title">Commit Manager</div>
     <div class="nickname_wrap">
-      <span th:text="${session.USER_INFO.name}"></span>님
+      <span th:text="${session.USER_INFO.name}"></span> 님
     </div>
     <div class='rest_time_wrap'>
-      <div>오늘의 커밋까지</div>
+      <div class='rest_time_message'>오늘의 커밋까지</div>
       <div class='rest_time'></div>
-      <div class='rest_time_message'>남았습니다</div>
     </div>
-    <div class="main_wrap">
+    <div class="commit_wrap">
       <div class='last_commit_time_wrap'>
-        <span>마지막 커밋으로부터</span>
-        <span class='last_commit_time'></span>
-        <span class='last_commit_time_message'>지났습니다</span>
+        <span class='last_commit_time_message'></span>
       </div>
-      <ul class="commit_list"></ul>
+      <div class="commit_list_wrap"></div>
     </div>
   </div>
 </body>

@@ -15,7 +15,7 @@
       padding: 200px 300px;
     }
     .login {
-      width: 200px;
+      width: 220px;
       height: 50px;
       background: #fff;
       box-shadow: 2px 3px 8px 2px #aaa;
@@ -23,6 +23,8 @@
       line-height: 50px;
       margin: auto;
       margin-top: 30px;
+      font-size: 1.2rem;
+      vertical-align: middle;
     }
     .title {
       color: rgba(46, 1, 248, 0.295);
@@ -32,10 +34,21 @@
     .login:hover {
       cursor: pointer;
     }
+    .image {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: no-repeat center/100% url(/resources/static/images/github_logo.jpg);
+      vertical-align: middle;
+      margin-left: 5px;
+    }
   </style>
 </head>
 <body>
   <div class="title">Commit Manager</div>
-  <div class="login">Login with github</div>
+  <div class="login">
+    <span>Login with github</span>
+    <div class="image"></div>
+  </div>
 </body>
 </html>
