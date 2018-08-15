@@ -3,13 +3,19 @@
 <mapper namespace="batchMapper">
     <select id="selectTest" resultType="com.developer.codesquad.domain.BatchRequest">
         <![CDATA[
-            SELECT * FROM test
+            SELECT * FROM users
+         ]]>
+    </select>
+    
+    <select id="isPushAgree" parameterType="com.developer.codesquad.domain.TokenRequest" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT count(*) as count FROM users WHERE id=#{id} AND token=#{token}
          ]]>
     </select>
     
     <update id="updateToken" parameterType="com.developer.codesquad.domain.TokenRequest">
    		<![CDATA[
-            INSERT INTO test (id, token) VALUES (#{id}, #{token})  
+            INSERT INTO users (id, token) VALUES (#{id}, #{token})  
 			ON DUPLICATE KEY UPDATE id=#{id}, token=#{token};
          ]]>
     </update>
