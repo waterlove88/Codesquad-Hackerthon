@@ -11,7 +11,7 @@
 const ajax = function({uri, callback}) {
   const dummyData = {
     createdAt: "2018-08-14 08:02:13",
-    commits: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
+    commitList: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
   }
   callback(dummyData);
 }
@@ -53,7 +53,7 @@ class DateCalculator {
 
   set(ajaxData) {
     this.lastCommitDate = new Date(ajaxData.createdAt);
-    const commitList = ajaxData.commits;
+    const commitList = ajaxData.commitList;
 
     this.setLastCommitTime(this.lastCommitDate);
     this.setRestTime({lastCommitDate: this.lastCommitDate});
@@ -80,12 +80,12 @@ class DateCalculator {
       
       const restDays = this.dayCalculator({month: passedTimeMonth, date: passedTimeDate});
 
-      const passedTimeMessage = `${restDays}일 ${passedTimeHours}시간 ${passedTimeMinutes}분 ${passedTimeSeconds}초`;
+      const passedTimeMessage = `${restDays}일 ${passedTimeHours}시간 ${passedTimeMinutes}분`;
 
-      message = '마지막 커밋으로부터 ' + passedTimeMessage + ' 지났습니다';
+      message = '마지막 커밋으로부터 <span class="text_highlight">' + passedTimeMessage + '</span> 지났습니다';
     }
 
-    this.elLastCommitTimeMessage.textContent = message;
+    this.elLastCommitTimeMessage.innerHTML = message;
   }
 
   setRestTime({lastCommitDate}) {
@@ -127,10 +127,10 @@ class DateCalculator {
     this.setTimeoutID = setTimeout(this.setRestTime.bind(this, {lastCommitDate: this.lastCommitDate}), 1000);
   }
 
-  renderCommitList(commits) {
-    if(commits.length === 0) return;
+  renderCommitList(commitList) {
+    if(commitList.length === 0) return;
     else this.elCommitListWrap.innerHTML = '<ul class="commit_list">'
-     + commits.reduce((html, commit) => html += this.template(commit.message), '')
+     + commitList.reduce((html, commit) => html += this.template(commit.message), '')
      + '</ul>';
   }
 }

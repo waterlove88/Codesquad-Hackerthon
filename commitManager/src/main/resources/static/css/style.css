@@ -42,6 +42,10 @@
   line-height: 50px;
 }
 
+.text_highlight {
+  font-weight: 400;
+}
+
 
 /* rest time */
 .rest_time_wrap {
@@ -78,4 +82,15 @@
 .commit_list_item:nth-last-child(1) {
   margin-bottom: 0px;
   border: none;
+}
+
+/* logout */
+.logout_button {
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.logout_button:hover {
+  cursor: pointer;
 }
