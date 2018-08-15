@@ -9,11 +9,9 @@
 import Foundation
 
 struct PushEvent: Codable {
-  var commits: [Commit]?
-  var createdAt: Date?
+  var createdAt: String?
   
   enum CodingKeys: String, CodingKey {
-    case commits
     case createdAt
   }
 }

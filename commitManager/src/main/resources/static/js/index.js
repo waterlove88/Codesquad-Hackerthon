@@ -8,6 +8,14 @@ const ajax = function({uri, callback}) {
   x.send();
 }
 
+/*const ajax = function({uri, callback}) {
+  const dummyData = {
+    createdAt: "2018-08-14 08:02:13",
+    commitList: [{message: 'fix: bug fix'}, {message: 'feat: add some feature'}]
+  }
+  callback(dummyData);
+}*/
+
 // const ajax = function({uri, callback}) {
 //   const dummyData = {
 //     createdAt: "2018-08-14 12:02:13",
@@ -143,7 +151,8 @@ const dateCalculator = new DateCalculator({
   lastCommitTimeMessageElem: document.querySelector('.last_commit_time_message'),
   restTimeElem: document.querySelector('.rest_time'),
   commitListWrapElem: document.querySelector('.commit_list_wrap'),
-  uri: 'http://13.209.88.99/api/commit/recent?login=youngdo212',
+  /*uri: 'http://13.209.88.99/api/commit/recent',*/
+    uri: 'http://localhost/api/commit/recent',
   ajax: ajax,
   dayCalculator: dayCalculator,
   template: template

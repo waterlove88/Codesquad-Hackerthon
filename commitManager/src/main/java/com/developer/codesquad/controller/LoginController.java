@@ -50,7 +50,7 @@ public class LoginController {
     @GetMapping(value = {"/", "/login"})
     public String viewLogin(Model model) {
         model.addAttribute("oauthUrl", builder.toUriString());
-        return "login";
+        return "loginPage";
     }
 
     @GetMapping("/oauth/authorized")

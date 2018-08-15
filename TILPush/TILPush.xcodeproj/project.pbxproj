@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		871E4838212331250040EC89 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871E4837212331250040EC89 /* PreferenceManager.swift */; };
 		871E483A212348BD0040EC89 /* PushEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871E4839212348BD0040EC89 /* PushEvent.swift */; };
-		871E483C212349100040EC89 /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871E483B212349100040EC89 /* Commit.swift */; };
 		871E483E212355360040EC89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 871E483D212355360040EC89 /* GoogleService-Info.plist */; };
 		875F2A9C2123191300BB55D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F2A9B2123191300BB55D9 /* AppDelegate.swift */; };
 		875F2AA12123191300BB55D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 875F2A9F2123191300BB55D9 /* Main.storyboard */; };
@@ -31,7 +30,6 @@
 		3A0295870A8904066E91CC5A /* Pods-TILPush.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TILPush.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TILPush/Pods-TILPush.debug.xcconfig"; sourceTree = "<group>"; };
 		871E4837212331250040EC89 /* PreferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		871E4839212348BD0040EC89 /* PushEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushEvent.swift; sourceTree = "<group>"; };
-		871E483B212349100040EC89 /* Commit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
 		871E483D212355360040EC89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		875F2A982123191300BB55D9 /* TILPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TILPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		875F2A9B2123191300BB55D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 			children = (
 				875F2ABB21232A9700BB55D9 /* User.swift */,
 				871E4839212348BD0040EC89 /* PushEvent.swift */,
-				871E483B212349100040EC89 /* Commit.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,7 +278,6 @@
 			files = (
 				875F2AB6212327B900BB55D9 /* BaseViewController.swift in Sources */,
 				875F2AB2212322A600BB55D9 /* Router.swift in Sources */,
-				871E483C212349100040EC89 /* Commit.swift in Sources */,
 				875F2AAE2123206800BB55D9 /* LoginViewController.swift in Sources */,
 				875F2AB82123295500BB55D9 /* App.swift in Sources */,
 				871E4838212331250040EC89 /* PreferenceManager.swift in Sources */,
