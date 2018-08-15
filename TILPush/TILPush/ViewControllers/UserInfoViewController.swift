@@ -32,7 +32,7 @@ fileprivate extension UserInfoViewController {
   @objc func updateDeviceToken(_ notification: Notification) {
     if let userInfo = notification.userInfo,
       let deviceToken = userInfo["deviceToken"] as? String {
-      print(deviceToken)
+      App.api.updateDeviceToken("yuaming", deviceToken)
     }
   }
 }

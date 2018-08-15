@@ -64,4 +64,9 @@ struct API {
       return pushEvent
     }
   }
+  
+  func updateDeviceToken(_ loginId: String, _ token: String) {
+    let parameters = ["id": loginId, "token": token]
+    Router.setToken.buildRequest(parameters: parameters)
+  }
 }

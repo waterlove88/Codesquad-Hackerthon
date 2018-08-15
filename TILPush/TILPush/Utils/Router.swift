@@ -15,10 +15,11 @@ import RxAlamofire
 enum Router {
   case user(String)
   case pushEvent(String)
+  case setToken
 }
 
 extension Router {
-  static let baseURLString = "https://api.github.com"
+  static let baseURLString = "http://13.209.88.99"
   
   var path: String {
     switch self {
@@ -26,6 +27,8 @@ extension Router {
       return "/\(token)"
     case .pushEvent(let id):
       return "/\(id)"
+    case .setToken:
+      return "/batch/setToken"
     }
   }
   
@@ -43,6 +46,8 @@ extension Router {
       return .get
     case .pushEvent:
       return .get
+    case .setToken:
+      return .post
     }
   }
   
@@ -52,7 +57,15 @@ extension Router {
       return URLEncoding.default
     case .pushEvent:
       return URLEncoding.default
+    case .setToken:
+      return URLEncoding.methodDependent
     }
+  }
+  
+  static var postedHeaders: HTTPHeaders {
+    var headers: HTTPHeaders = [:]
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+    return headers
   }
   
   static let manager: Alamofire.SessionManager = {
@@ -74,16 +87,13 @@ extension Router {
       .data().observeOn(MainScheduler.instance)
   }
   
-  func buildRequest(parameters: Parameters) -> Observable<Data> {
-    guard let url = url else { return Observable.empty() }
+  func buildRequest(parameters: Parameters, headers: HTTPHeaders? = nil) {
+    guard let url = url else { return }
     
-    return Router.manager.rx
-      .request(method,
-               url,
-               parameters: parameters,
-               encoding: parameterEncoding,
-               headers: nil)
-      .validate(statusCode: 200..<300)
-      .data().observeOn(MainScheduler.instance)
+    Alamofire.request(url,
+                      method: method,
+                      parameters: parameters,
+                      encoding: parameterEncoding,
+                      headers: headers)
   }
 }
