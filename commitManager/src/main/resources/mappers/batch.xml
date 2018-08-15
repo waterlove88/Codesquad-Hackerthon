@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="batchMapper">
-    <select id="selectTest" resultType="com.developer.codesquad.domain.BatchRequest">
+    <select id="selectToken" resultType="com.developer.codesquad.domain.BatchRequest">
         <![CDATA[
-            SELECT * FROM users
+            SELECT token FROM users WHERE token is not null
          ]]>
     </select>
     
