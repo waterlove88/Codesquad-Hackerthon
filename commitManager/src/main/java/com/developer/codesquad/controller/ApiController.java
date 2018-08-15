@@ -24,7 +24,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@RestController("/api")
+@RestController
+@RequestMapping("/api")
 public class ApiController {
 
     @Autowired
@@ -36,30 +37,30 @@ public class ApiController {
     @Value("${github.oauth.client_secret}")
     private String clientSecret;
 
-    @RequestMapping("/commit/recent")
+    @GetMapping("/commit/recent")
     public ResponseEntity getCommitRecent(@RequestParam("login") String loginId) throws URISyntaxException {
-        Event event = null;
+        Event event = new Event();
         Gson gson = new Gson();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("client_id", clientId);
         httpHeaders.set("client_secret", clientSecret);
 
         StringBuilder stringBuilder = new StringBuilder("https://api.github.com/users/");
-        stringBuilder.append(loginId).append("?type=pushEvent");
-        ResponseEntity<JsonArray> responseEntity = restTemplate.exchange(new RequestEntity<>(httpHeaders,
+        stringBuilder.append(loginId).append("/events").append("?type=pushEvent");
+        ResponseEntity<String> responseEntity = restTemplate.exchange(new RequestEntity<>(httpHeaders,
                         HttpMethod.GET, new URI(stringBuilder.toString())),
-                new ParameterizedTypeReference<JsonArray>() {});
+                new ParameterizedTypeReference<String>() {});
 
-        JsonArray eventList = responseEntity.getBody();
+        JsonArray eventList = gson.fromJson(responseEntity.getBody(), JsonArray.class);
 
         if (eventList != null && eventList.size() > 0) {
             JsonObject recentEvent = (JsonObject) eventList.get(0);
             JsonObject payload = (JsonObject) recentEvent.get("payload");
             JsonArray commits = payload.getAsJsonArray("commits");
-            Type commitType = new TypeToken<List<String>>(){}.getType();
+            Type commitType = new TypeToken<List<Commit>>(){}.getType();
             List<Commit> commitList = gson.fromJson(commits.toString(), commitType);
 
-            event.setLogin(((JsonObject)recentEvent.get("author")).get("login").getAsString());
+            event.setLogin(((JsonObject)recentEvent.get("actor")).get("login").getAsString());
             event.setCommitList(commitList);
 
             ZoneId zoneId = ZoneId.of("Asia/Seoul");
