@@ -11,21 +11,24 @@ import UIKit
 class UserInfoViewController: BaseViewController {
   @IBOutlet weak var userLabel: UILabel!
   @IBOutlet weak var timeLabel: UILabel!
+  @IBOutlet weak var logoutButton: UIBarButtonItem!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    bindUI()
+
     bindEvents()
   }
 }
 
 fileprivate extension UserInfoViewController {
-  func bindUI() {
-    navigationController?.navigationBar.isHidden = true
-  }
-  
   func bindEvents() {
+    logoutButton.rx.tap.subscribe(onNext: { _ in
+      App.preferenceManager.token = nil
+      App.preferenceManager.refreshToken = nil
+      App.preferenceManager.loginId = nil
+      App.preferenceManager.name = nil
+    }).disposed(by: disposeBag)
+    
     App.preferenceManager.rx.name
       .filter { $0 != nil }
       .subscribe(onNext: { [weak self] (name) in

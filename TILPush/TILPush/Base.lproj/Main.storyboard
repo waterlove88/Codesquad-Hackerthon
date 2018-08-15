@@ -77,8 +77,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="J7C-Xy-b2L"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Xwh-VJ-42d"/>
+                    <navigationItem key="navigationItem" id="NHS-xu-HUQ">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Ww8-XB-MeS">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="logoutButton" destination="Ww8-XB-MeS" id="67A-Yl-tTQ"/>
                         <outlet property="timeLabel" destination="IzJ-JG-3fo" id="ZWB-NC-Fmd"/>
                         <outlet property="userLabel" destination="zbd-Kw-hUg" id="2dn-dU-BOc"/>
                     </connections>
