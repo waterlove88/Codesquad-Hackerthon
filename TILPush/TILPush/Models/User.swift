@@ -11,9 +11,11 @@ import Foundation
 struct User: Codable {
   var login: String = ""
   var name: String = ""
+  var email: String = ""
   
   enum CodingKeys: String, CodingKey {
     case login
     case name
+    case email
   }
 }
