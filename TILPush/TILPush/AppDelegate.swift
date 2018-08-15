@@ -8,24 +8,34 @@
 
 import UIKit
 import OAuthSwift
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    
     #if DEBUG
       removeUserDefaults()
     #endif
     
+    FirebaseApp.configure()
+    
+    application.registerForRemoteNotifications()
+    requestNotificationAuthorization(application)
+    printNotificationUserInfo(launchOptions)
+    
     LoginViewController.register()
+    
     return true
   }
   
-  func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+  func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
     if url.host == "oauth-callback" {
       OAuthSwift.handle(url: url)
     }
+    
     return true
   }
   
@@ -34,4 +44,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UserDefaults.standard.removePersistentDomain(forName: appDomain!)
   }
 }
-

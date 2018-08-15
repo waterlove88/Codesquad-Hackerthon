@@ -10,6 +10,7 @@
 		871E4838212331250040EC89 /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871E4837212331250040EC89 /* PreferenceManager.swift */; };
 		871E483A212348BD0040EC89 /* PushEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871E4839212348BD0040EC89 /* PushEvent.swift */; };
 		871E483C212349100040EC89 /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871E483B212349100040EC89 /* Commit.swift */; };
+		871E483E212355360040EC89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 871E483D212355360040EC89 /* GoogleService-Info.plist */; };
 		875F2A9C2123191300BB55D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F2A9B2123191300BB55D9 /* AppDelegate.swift */; };
 		875F2AA12123191300BB55D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 875F2A9F2123191300BB55D9 /* Main.storyboard */; };
 		875F2AA32123191500BB55D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875F2AA22123191500BB55D9 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		875F2AB82123295500BB55D9 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F2AB72123295500BB55D9 /* App.swift */; };
 		875F2ABA2123297F00BB55D9 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F2AB92123297F00BB55D9 /* API.swift */; };
 		875F2ABC21232A9700BB55D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875F2ABB21232A9700BB55D9 /* User.swift */; };
+		87DF46492123A37300B0F464 /* AppDelegate + Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DF46482123A37300B0F464 /* AppDelegate + Push.swift */; };
 		9BA2B048AAB4BB0FAF7C8AD3 /* Pods_TILPush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34CDD5FDCEE3F526DB46C28B /* Pods_TILPush.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,7 @@
 		871E4837212331250040EC89 /* PreferenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		871E4839212348BD0040EC89 /* PushEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushEvent.swift; sourceTree = "<group>"; };
 		871E483B212349100040EC89 /* Commit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
+		871E483D212355360040EC89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		875F2A982123191300BB55D9 /* TILPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TILPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		875F2A9B2123191300BB55D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		875F2AA02123191300BB55D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -43,6 +46,8 @@
 		875F2AB72123295500BB55D9 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		875F2AB92123297F00BB55D9 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		875F2ABB21232A9700BB55D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		87DF464721239E2900B0F464 /* TILPush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TILPush.entitlements; sourceTree = "<group>"; };
+		87DF46482123A37300B0F464 /* AppDelegate + Push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate + Push.swift"; sourceTree = "<group>"; };
 		DD1220192028C73BA4D7D041 /* Pods-TILPush.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TILPush.release.xcconfig"; path = "Pods/Target Support Files/Pods-TILPush/Pods-TILPush.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,10 +128,13 @@
 				871E4835212330D90040EC89 /* Utils */,
 				871E4834212330CD0040EC89 /* ViewControllers */,
 				875F2A9B2123191300BB55D9 /* AppDelegate.swift */,
+				87DF46482123A37300B0F464 /* AppDelegate + Push.swift */,
 				875F2A9F2123191300BB55D9 /* Main.storyboard */,
 				875F2AA22123191500BB55D9 /* Assets.xcassets */,
 				875F2AA42123191500BB55D9 /* LaunchScreen.storyboard */,
 				875F2AA72123191500BB55D9 /* Info.plist */,
+				871E483D212355360040EC89 /* GoogleService-Info.plist */,
+				87DF464721239E2900B0F464 /* TILPush.entitlements */,
 			);
 			path = TILPush;
 			sourceTree = "<group>";
@@ -173,6 +181,11 @@
 				TargetAttributes = {
 					875F2A972123191300BB55D9 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -200,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				875F2AA62123191500BB55D9 /* LaunchScreen.storyboard in Resources */,
+				871E483E212355360040EC89 /* GoogleService-Info.plist in Resources */,
 				875F2AA32123191500BB55D9 /* Assets.xcassets in Resources */,
 				875F2AA12123191300BB55D9 /* Main.storyboard in Resources */,
 			);
@@ -271,6 +285,7 @@
 				875F2AAE2123206800BB55D9 /* LoginViewController.swift in Sources */,
 				875F2AB82123295500BB55D9 /* App.swift in Sources */,
 				871E4838212331250040EC89 /* PreferenceManager.swift in Sources */,
+				87DF46492123A37300B0F464 /* AppDelegate + Push.swift in Sources */,
 				875F2ABC21232A9700BB55D9 /* User.swift in Sources */,
 				875F2AB0212320B000BB55D9 /* UserInfoViewController.swift in Sources */,
 				875F2A9C2123191300BB55D9 /* AppDelegate.swift in Sources */,
@@ -420,6 +435,7 @@
 			baseConfigurationReference = 3A0295870A8904066E91CC5A /* Pods-TILPush.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TILPush/TILPush.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = TILPush/Info.plist;
@@ -439,6 +455,7 @@
 			baseConfigurationReference = DD1220192028C73BA4D7D041 /* Pods-TILPush.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TILPush/TILPush.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = TILPush/Info.plist;
